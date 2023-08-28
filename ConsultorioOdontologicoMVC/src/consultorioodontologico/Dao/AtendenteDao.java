@@ -60,8 +60,8 @@ public class AtendenteDao extends Pessoa {
 
     public void cadastrar(Atendente atendente) {
         try {
-            this.cadastrarPessoa();
-            this.pegaUltimoIdPessoa();
+            atendente.cadastrarPessoa();
+            atendente.pegaUltimoIdPessoa();
 
             String sql = "INSERT INTO atendente (salario,senha,login,cod_pessoa) VALUES ("
                     + "  " + atendente.getSalario() + ", "
@@ -91,7 +91,7 @@ public class AtendenteDao extends Pessoa {
 
     public void editar(Atendente atendente) {
         try {
-            this.editarPessoa();
+            atendente.editarPessoa();
 
             String sql = "UPDATE atendente SET "
                     + " salario = " + atendente.getSalario() + " , "

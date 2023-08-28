@@ -9,10 +9,12 @@ import consultorioodontologico.Controller.AtendimentoController;
 import consultorioodontologico.Controller.DentistaController;
 import consultorioodontologico.Controller.PacienteController;
 import consultorioodontologico.Controller.ProcedimentosController;
+import consultorioodontologico.Dao.ModuloConexao;
 import consultorioodontologico.Model.Atendimento;
 import consultorioodontologico.Model.Dentista;
 import consultorioodontologico.Model.Paciente;
 import consultorioodontologico.Model.Procedimentos;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -169,6 +171,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         secaoDentista = false;
         secaoProcedimento = true;
         secaoHorario = true;
+        
+        
 
         atualizaTabelaHorarios();
     }
@@ -185,14 +189,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         model.setRowCount(0);
         model.setColumnCount(7);
         model.setColumnIdentifiers(columnNames);
-        String[] postagem = {"", "", "", "", "", "", ""};
-        for (Atendimento aten : ListaAtendimentos) {
-
-            postagem[0] = String.valueOf(aten.getIdAtendimento());
-            postagem[1] = aten.getHorario();
-            postagem[2] = aten.getData();
-
-            model.addRow(postagem);
+        
+        String tabela[] = {"", "","" ,"" , "", "",""};
+        String sql = "SELECT A.idAtendimento, A.horario, A.data, PP.nome AS nome_paciente, PD.nome AS nome_dentista,"
+                + " PR.nome_procedimento AS procedimento, PR.valor, PAT.nome as nome_atendente "
+                + "FROM atendimento A JOIN paciente P ON A.cod_paciente = P.idPaciente "
+                + "JOIN pessoa PP ON P.cod_pessoa = PP.idPessoa JOIN dentista D ON A.cod_dentista = D.idDentista "
+                + "JOIN pessoa PD ON D.cod_pessoa = PD.idPessoa JOIN procedimento PR ON A.cod_procedimento = PR.idProcedimento "
+                + "JOIN Atendente ATE ON A.cod_Atendente = ATE.idAtendente JOIN Pessoa PAT ON ATE.cod_pessoa = PAT.idPessoa;";
+        System.out.println(sql);
+        ResultSet rs = ModuloConexao.consultar(sql);
+        if(rs!=null){
+            try{
+                while( rs.next()){
+                    tabela[0] = rs.getString(1);
+                    tabela[1] = rs.getString(2);
+                    tabela[2] = rs.getString(3);
+                    tabela[3] = rs.getString(4);
+                    tabela[4] = rs.getString(5);
+                    tabela[5] = rs.getString(6);
+                    tabela[6] = rs.getString(7);
+                }
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+        }
+        
+            model.addRow(tabela);
         }
     }
 
@@ -462,10 +484,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (secaoProcedimento) {
             atualizaTabelaProcedimentos();
         }
+        
+        if(secaoHorario) {
+            atualizaTabelaHorarios();
+        }
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnHoráriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoráriosActionPerformed
-        // TODO add your handling code here:
+        transicionaTelaParaHorarios();
     }//GEN-LAST:event_btnHoráriosActionPerformed
 
     /**

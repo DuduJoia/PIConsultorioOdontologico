@@ -52,8 +52,8 @@ public class DentistaDao extends Pessoa{
     
     public void cadastrar(Dentista dentista) {
         try {
-            this.cadastrarPessoa();
-            this.pegaUltimoIdPessoa();
+            dentista.cadastrarPessoa();
+            dentista.pegaUltimoIdPessoa();
 
             String sql = "insert into dentista (salario,cro,cod_Pessoa) values ("
                     + "  " + dentista.getSalario() + ", "
@@ -82,8 +82,9 @@ public class DentistaDao extends Pessoa{
     }
     
     public void editar(Dentista dentista) {
-        this.editarPessoa();
         try {
+        dentista.editarPessoa();
+        
             String sql = "UPDATE dentista SET "
                     + " salario = " + dentista.getSalario() + " , "
                     + " cro = '" + dentista.getCro() + "'  "
