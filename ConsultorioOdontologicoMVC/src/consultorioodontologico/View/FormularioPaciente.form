@@ -27,9 +27,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="lblCodigoCliente" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCodigoPaciente" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtCodigoCliente" min="-2" pref="125" max="-2" attributes="0"/>
+                      <Component id="txtCodigoPaciente" min="-2" pref="125" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -91,8 +91,8 @@
               <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblCodigoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCodigoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCodigoPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCodigoPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
@@ -141,12 +141,12 @@
         <Property name="text" type="java.lang.String" value="Atualizar Cadastro"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblCodigoCliente">
+    <Component class="javax.swing.JLabel" name="lblCodigoPaciente">
       <Properties>
-        <Property name="text" type="java.lang.String" value="C&#xf3;digo do Cliente"/>
+        <Property name="text" type="java.lang.String" value="C&#xf3;digo do Paciente"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCodigoCliente">
+    <Component class="javax.swing.JTextField" name="txtCodigoPaciente">
     </Component>
     <Component class="javax.swing.JButton" name="btnBuscar">
       <Properties>

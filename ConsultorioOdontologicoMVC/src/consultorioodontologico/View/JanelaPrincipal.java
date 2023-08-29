@@ -39,31 +39,31 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     ProcedimentosController procedimento = new ProcedimentosController();
     AtendimentoController atendimento = new AtendimentoController();
 
-    FormularioCliente FormCli = new FormularioCliente();
-    boolean secaoCliente = true, secaoDentista, secaoProcedimento, secaoHorario;
+    FormularioPaciente FormPac = new FormularioPaciente();
+    boolean secaoPaciente = true, secaoDentista, secaoProcedimento, secaoHorario;
     String usuario = "";
 
     public JanelaPrincipal() {
         initComponents();
-        FormCli.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        atualizaTabelaCliente();
+        FormPac.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        atualizaTabelaPaciente();
 
     }
 
-    public void transicionaTelaParaCliente() {
-        lblTitulo.setText("Clientes");
+    public void transicionaTelaParaPaciente() {
+        lblTitulo.setText("Pacientes");
         btnCadastrar.setVisible(true);
         btnExcluir.setVisible(true);
         btnEditar.setVisible(true);
 
-        secaoCliente = true;
+        secaoPaciente = true;
         secaoDentista = false;
         secaoProcedimento = false;
         secaoHorario = false;
-        atualizaTabelaCliente();
+        atualizaTabelaPaciente();
     }
 
-    public void atualizaTabelaCliente() {
+    public void atualizaTabelaPaciente() {
         ListaPacientes = null;
         ListaPacientes = paciente.getPacientes();
         String columnNames[] = {"Código", "Nome", "CPF", "Celular", "Email", "Endereco", "Anamnese"};
@@ -95,7 +95,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnEditar.setVisible(false);
         }
 
-        secaoCliente = false;
+        secaoPaciente = false;
         secaoDentista = true;
         secaoProcedimento = false;
         secaoHorario = false;
@@ -131,7 +131,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnEditar.setVisible(false);
         }
         
-        secaoCliente = false;
+        secaoPaciente = false;
         secaoDentista = false;
         secaoProcedimento = true;
         secaoHorario = false;
@@ -167,7 +167,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btnExcluir.setVisible(true);
         btnEditar.setVisible(true);
 
-        secaoCliente = false;
+        secaoPaciente = false;
         secaoDentista = false;
         secaoProcedimento = true;
         secaoHorario = true;
@@ -230,7 +230,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        btnCliente = new javax.swing.JButton();
+        btnPaciente = new javax.swing.JButton();
         btnDentista = new javax.swing.JButton();
         btnHorários = new javax.swing.JButton();
         btnProcedimentos = new javax.swing.JButton();
@@ -252,12 +252,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(38, 90, 92));
         jPanel1.setForeground(new java.awt.Color(38, 90, 92));
 
-        btnCliente.setBackground(new java.awt.Color(38, 90, 92));
-        btnCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btnCliente.setText("Cliente");
-        btnCliente.addActionListener(new java.awt.event.ActionListener() {
+        btnPaciente.setBackground(new java.awt.Color(38, 90, 92));
+        btnPaciente.setForeground(new java.awt.Color(255, 255, 255));
+        btnPaciente.setText("Paciente");
+        btnPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClienteActionPerformed(evt);
+                btnPacienteActionPerformed(evt);
             }
         });
 
@@ -306,7 +306,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                             .addComponent(lblUser)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(btnHorários, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDentista, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnProcedimentos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -320,7 +320,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel2)
                 .addGap(23, 23, 23)
-                .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDentista, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -343,7 +343,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblDados);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblTitulo.setText("Clientes");
+        lblTitulo.setText("Pacientes");
 
         txtPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -439,17 +439,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        transicionaTelaParaCliente();
-    }//GEN-LAST:event_btnClienteActionPerformed
+    private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
+        transicionaTelaParaPaciente();
+    }//GEN-LAST:event_btnPacienteActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPesquisaActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        FormCli.transicaoCadastrar();
-        FormCli.setVisible(true);
+        FormPac.transicaoCadastrar();
+        FormPac.setVisible(true);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnDentistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDentistaActionPerformed
@@ -457,13 +457,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDentistaActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        FormCli.transicaoEditar();
-        FormCli.setVisible(true);
+        FormPac.transicaoEditar();
+        FormPac.setVisible(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        FormCli.transicaoExcluir();
-        FormCli.setVisible(true);
+        FormPac.transicaoExcluir();
+        FormPac.setVisible(true);
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnPesquiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquiarActionPerformed
@@ -475,8 +475,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProcedimentosActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        if (secaoCliente) {
-            atualizaTabelaCliente();
+        if (secaoPaciente) {
+            atualizaTabelaPaciente();
         }
         if (secaoDentista) {
             atualizaTabelaDentista();
@@ -531,11 +531,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnDentista;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnHorários;
+    private javax.swing.JButton btnPaciente;
     private javax.swing.JButton btnPesquiar;
     private javax.swing.JButton btnProcedimentos;
     private javax.swing.JLabel jLabel2;

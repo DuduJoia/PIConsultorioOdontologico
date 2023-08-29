@@ -15,14 +15,15 @@ import javax.swing.JOptionPane;
  *
  * @author Eduardo
  */
-public class FormularioCliente extends javax.swing.JFrame {
+public class FormularioPaciente extends javax.swing.JFrame {
 
     ArrayList<Paciente> listaPacientes;
     Connection conexao = null;
     boolean modoExcluir, modoEditar = true, modoCadastrar;
     PacienteController paciente = new PacienteController();
+    int idPEditar = 0;
 
-    public FormularioCliente() {
+    public FormularioPaciente() {
         initComponents();
         conexao = ModuloConexao.conector();
         limpaTexto();
@@ -36,7 +37,7 @@ public class FormularioCliente extends javax.swing.JFrame {
         listaPacientes = paciente.getPacientes();
         try {
             for (Paciente pac : listaPacientes) {
-                if (pac.getIdPaciente() == Integer.parseInt(txtCodigoCliente.getText())) {
+                if (pac.getIdPaciente() == Integer.parseInt(txtCodigoPaciente.getText())) {
                     txtNome.setText(pac.getNome());
                     txtCpf.setText(pac.getCpf());
                     txtCelular.setText(pac.getCelular());
@@ -60,28 +61,11 @@ public class FormularioCliente extends javax.swing.JFrame {
         }
     }
 
-    public void editarPaciente() {
-        try {
-            listaPacientes = null;
-            listaPacientes = paciente.getPacientes();
-
-            for (Paciente pac : listaPacientes) {
-                if (pac.getIdPaciente() == Integer.parseInt(txtCodigoCliente.getText())) {
-                    paciente.editarPaciente(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), txtAreaAnamnese.getText());
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Paciente Editado com sucesso");
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
     public void transicaoExcluir() {
         lblTitulo.setText("Excluir Paciente");
         btnAtualizar.setText("Excluir");
-        lblCodigoCliente.setVisible(true);
-        txtCodigoCliente.setVisible(true);
+        lblCodigoPaciente.setVisible(true);
+        txtCodigoPaciente.setVisible(true);
         btnBuscar.setVisible(true);
 
         txtNome.setEnabled(false);
@@ -102,8 +86,8 @@ public class FormularioCliente extends javax.swing.JFrame {
     public void transicaoEditar() {
         lblTitulo.setText("Atualizar Paciente");
         btnAtualizar.setText("Atualizar");
-        lblCodigoCliente.setVisible(true);
-        txtCodigoCliente.setVisible(true);
+        lblCodigoPaciente.setVisible(true);
+        txtCodigoPaciente.setVisible(true);
         btnBuscar.setVisible(true);
 
         limpaTexto();
@@ -128,8 +112,8 @@ public class FormularioCliente extends javax.swing.JFrame {
         modoExcluir = false;
         modoCadastrar = true;
 
-        lblCodigoCliente.setVisible(false);
-        txtCodigoCliente.setVisible(false);
+        lblCodigoPaciente.setVisible(false);
+        txtCodigoPaciente.setVisible(false);
         btnBuscar.setVisible(false);
 
         limpaTexto();
@@ -143,7 +127,7 @@ public class FormularioCliente extends javax.swing.JFrame {
     }
 
     public void limpaTexto() {
-        txtCodigoCliente.setText("");
+        txtCodigoPaciente.setText("");
         txtNome.setText("");
         txtCpf.setText("");
         txtCelular.setText("");
@@ -157,8 +141,8 @@ public class FormularioCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitulo = new javax.swing.JLabel();
-        lblCodigoCliente = new javax.swing.JLabel();
-        txtCodigoCliente = new javax.swing.JTextField();
+        lblCodigoPaciente = new javax.swing.JLabel();
+        txtCodigoPaciente = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -180,7 +164,7 @@ public class FormularioCliente extends javax.swing.JFrame {
 
         lblTitulo.setText("Atualizar Cadastro");
 
-        lblCodigoCliente.setText("Código do Cliente");
+        lblCodigoPaciente.setText("Código do Paciente");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -249,9 +233,9 @@ public class FormularioCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(lblCodigoCliente)
+                        .addComponent(lblCodigoPaciente)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar))
                     .addGroup(layout.createSequentialGroup()
@@ -298,8 +282,8 @@ public class FormularioCliente extends javax.swing.JFrame {
                 .addComponent(lblTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigoCliente)
-                    .addComponent(txtCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCodigoPaciente)
+                    .addComponent(txtCodigoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -341,6 +325,7 @@ public class FormularioCliente extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         buscaIdPacientes();
+        idPEditar = Integer.parseInt(txtCodigoPaciente.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -349,15 +334,16 @@ public class FormularioCliente extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (modoEditar == true) {
-            paciente.editarPaciente(txtNome.getText(), txtCpf.getText(), 
-            txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), txtAreaAnamnese.getText());
-            
+            paciente.editarPaciente(txtNome.getText(), txtCpf.getText(),
+                    txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(),
+                    txtAreaAnamnese.getText(), idPEditar);
+
         } else if (modoExcluir == true) {
-            paciente.excluirPaciente(Integer.parseInt(txtCodigoCliente.getText()));
-            
+            paciente.excluirPaciente(Integer.parseInt(txtCodigoPaciente.getText()));
+
         } else if (modoCadastrar == true) {
-            paciente.cadastrarPaciente(txtNome.getText(), txtCpf.getText(), 
-            txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), txtAreaAnamnese.getText());
+            paciente.cadastrarPaciente(txtNome.getText(), txtCpf.getText(),
+                    txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), txtAreaAnamnese.getText());
         }
         limpaTexto();
     }//GEN-LAST:event_btnAtualizarActionPerformed
@@ -379,21 +365,23 @@ public class FormularioCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioCliente().setVisible(true);
+                new FormularioPaciente().setVisible(true);
             }
         });
     }
@@ -405,7 +393,7 @@ public class FormularioCliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAnamnese;
     private javax.swing.JLabel lblCelular;
-    private javax.swing.JLabel lblCodigoCliente;
+    private javax.swing.JLabel lblCodigoPaciente;
     private javax.swing.JLabel lblCpf;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
@@ -413,7 +401,7 @@ public class FormularioCliente extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextArea txtAreaAnamnese;
     private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtCodigoCliente;
+    private javax.swing.JTextField txtCodigoPaciente;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
