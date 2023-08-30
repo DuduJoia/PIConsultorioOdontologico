@@ -51,6 +51,7 @@ public class PacienteDao extends Pessoa {
                     + " '" + paciente.getAnamnese() + "', "
                     + "  " + paciente.getIdPessoa() + "); ";
             ModuloConexao.executar(sql);
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -62,6 +63,9 @@ public class PacienteDao extends Pessoa {
             ModuloConexao.executar(sql);
             
             this.excluirPessoa(this.getIdPessoa());
+            
+            JOptionPane.showMessageDialog(null, "Cadastro excluid com sucesso");
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -76,6 +80,9 @@ public class PacienteDao extends Pessoa {
                     + " anamnese = '" + paciente.getAnamnese() + "'  "
                     + " where idPaciente = " + paciente.getIdPessoa() + ";  ";
             ModuloConexao.executar(sql);
+            
+            JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

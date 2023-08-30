@@ -17,7 +17,6 @@ public class PacienteController {
 
             Paciente pac = new Paciente(nome, cpf, celular, email, endereco, anamnese);
             pac.cadastrar(pac);
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso.");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -43,8 +42,6 @@ public class PacienteController {
                         pac.setEndereco(endereco);
                         pac.setAnamnese(anamnese);
                         pac.editar(pac);
-                        JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
-                        
                     }
                     
                 }
@@ -63,7 +60,6 @@ public class PacienteController {
                 if (pac.getIdPaciente() == idPaciente) {
                     pac.excluir(idPaciente);
                     
-                    JOptionPane.showMessageDialog(null, "Cadastro excluid com sucesso");
                 }
             }
         } catch (Exception e) {

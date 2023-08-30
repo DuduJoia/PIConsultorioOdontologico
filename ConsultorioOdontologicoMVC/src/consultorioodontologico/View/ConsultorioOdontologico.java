@@ -1,5 +1,5 @@
 
-package consultorioodontologico;
+package consultorioodontologico.View;
 
 import consultorioodontologico.View.Login;
 import java.util.Scanner;
