@@ -59,6 +59,8 @@ public class DentistaDao extends Pessoa{
                     + "  " + dentista.getSalario() + ", "
                     + " '" + dentista.getCro() + "',  "
                     + "  " + dentista.getIdPessoa() + "); ";
+            
+            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
 
             System.out.println(sql);
 
@@ -75,6 +77,8 @@ public class DentistaDao extends Pessoa{
             
             this.excluirPessoa(this.getIdPessoa());
             
+            JOptionPane.showMessageDialog(null, "Cadastro excluido com sucesso");
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -89,6 +93,8 @@ public class DentistaDao extends Pessoa{
                     + " salario = " + dentista.getSalario() + " , "
                     + " cro = '" + dentista.getCro() + "'  "
                     + " where Dentista = " + dentista.getIdDentista() + ";  ";
+            
+            JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
             ModuloConexao.executar(sql);
         } catch (Exception e) {

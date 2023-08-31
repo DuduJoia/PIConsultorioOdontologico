@@ -4,9 +4,9 @@
  */
 package consultorioodontologico.View;
 
-import consultorioodontologico.Controller.PacienteController;
+import consultorioodontologico.Controller.DentistaController;
 import consultorioodontologico.Dao.ModuloConexao;
-import consultorioodontologico.Model.Paciente;
+import consultorioodontologico.Model.Dentista;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -15,35 +15,36 @@ import javax.swing.JOptionPane;
  *
  * @author Eduardo
  */
-public class FormularioPaciente extends javax.swing.JFrame {
+public class FormularioDentista extends javax.swing.JFrame {
 
-    ArrayList<Paciente> listaPacientes;
+    ArrayList<Dentista> listaDentistas;
     Connection conexao = null;
     boolean modoExcluir, modoEditar = true, modoCadastrar;
-    PacienteController paciente = new PacienteController();
-    int idPaciente = 0;
+    DentistaController dentista = new DentistaController();
+    int idDentista = 0;
 
-    public FormularioPaciente() {
+    public FormularioDentista() {
         initComponents();
         conexao = ModuloConexao.conector();
         limpaTexto();
 
-        listaPacientes = paciente.getPacientes();
+        listaDentistas = dentista.getDentistas();
 
     }
 
-    public void buscaIdPacientes() {
-        listaPacientes = null;
-        listaPacientes = paciente.getPacientes();
+    public void buscaIdDentistas() {
+        listaDentistas = null;
+        listaDentistas = dentista.getDentistas();
         try {
-            for (Paciente pac : listaPacientes) {
-                if (pac.getIdPaciente() == Integer.parseInt(txtCodigoPaciente.getText())) {
-                    txtNome.setText(pac.getNome());
-                    txtCpf.setText(pac.getCpf());
-                    txtCelular.setText(pac.getCelular());
-                    txtEmail.setText(pac.getEmail());
-                    txtEndereco.setText(pac.getEndereco());
-                    txtAreaAnamnese.setText(pac.getAnamnese());
+            for (Dentista dent : listaDentistas) {
+                if (dent.getIdDentista()== Integer.parseInt(txtCodigoDentista.getText())) {
+                    txtNome.setText(dent.getNome());
+                    txtCpf.setText(dent.getCpf());
+                    txtCelular.setText(dent.getCelular());
+                    txtEmail.setText(dent.getEmail());
+                    txtEndereco.setText(dent.getEndereco());
+                    txtSalario.setText(String.valueOf(dent.getSalario()));
+                    txtCro.setText(dent.getCro());
 
                     if (modoEditar) {
                         txtNome.setEnabled(true);
@@ -51,7 +52,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
                         txtCelular.setEnabled(true);
                         txtEmail.setEnabled(true);
                         txtEndereco.setEnabled(true);
-                        txtAreaAnamnese.setEnabled(true);
+                        txtSalario.setEnabled(true);
+                        txtCro.setEnabled(true);
 
                     }
                 }
@@ -62,10 +64,10 @@ public class FormularioPaciente extends javax.swing.JFrame {
     }
 
     public void transicaoExcluir() {
-        lblTitulo.setText("Excluir Paciente");
+        lblTitulo.setText("Excluir Dentista");
         btnAtualizar.setText("Excluir");
-        lblCodigoPaciente.setVisible(true);
-        txtCodigoPaciente.setVisible(true);
+        lblCodigoDentista.setVisible(true);
+        txtCodigoDentista.setVisible(true);
         btnBuscar.setVisible(true);
 
         txtNome.setEnabled(false);
@@ -73,7 +75,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
         txtCelular.setEnabled(false);
         txtEmail.setEnabled(false);
         txtEndereco.setEnabled(false);
-        txtAreaAnamnese.setEnabled(false);
+        txtSalario.setEnabled(false);
+        txtCro.setEnabled(false);
 
         limpaTexto();
 
@@ -84,10 +87,10 @@ public class FormularioPaciente extends javax.swing.JFrame {
     }
 
     public void transicaoEditar() {
-        lblTitulo.setText("Atualizar Paciente");
+        lblTitulo.setText("Atualizar Dentista");
         btnAtualizar.setText("Atualizar");
-        lblCodigoPaciente.setVisible(true);
-        txtCodigoPaciente.setVisible(true);
+        lblCodigoDentista.setVisible(true);
+        txtCodigoDentista.setVisible(true);
         btnBuscar.setVisible(true);
 
         limpaTexto();
@@ -97,7 +100,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
         txtCelular.setEnabled(false);
         txtEmail.setEnabled(false);
         txtEndereco.setEnabled(false);
-        txtAreaAnamnese.setEnabled(false);
+        txtSalario.setEnabled(false);
+        txtCro.setEnabled(false);
 
         modoEditar = true;
         modoExcluir = false;
@@ -105,15 +109,15 @@ public class FormularioPaciente extends javax.swing.JFrame {
     }
 
     public void transicaoCadastrar() {
-        lblTitulo.setText("Cadastrar Paciente");
+        lblTitulo.setText("Cadastrar Dentista");
         btnAtualizar.setText("Cadastrar");
 
         modoEditar = false;
         modoExcluir = false;
         modoCadastrar = true;
 
-        lblCodigoPaciente.setVisible(false);
-        txtCodigoPaciente.setVisible(false);
+        lblCodigoDentista.setVisible(false);
+        txtCodigoDentista.setVisible(false);
         btnBuscar.setVisible(false);
 
         limpaTexto();
@@ -123,17 +127,19 @@ public class FormularioPaciente extends javax.swing.JFrame {
         txtCelular.setEnabled(true);
         txtEmail.setEnabled(true);
         txtEndereco.setEnabled(true);
-        txtAreaAnamnese.setEnabled(true);
+        txtSalario.setEnabled(true);
+        txtCro.setEnabled(true);
     }
 
     public void limpaTexto() {
-        txtCodigoPaciente.setText("");
+        txtCodigoDentista.setText("");
         txtNome.setText("");
         txtCpf.setText("");
         txtCelular.setText("");
         txtEmail.setText("");
         txtEndereco.setText("");
-        txtAreaAnamnese.setText("");
+        txtSalario.setText("");
+        txtCro.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -141,8 +147,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitulo = new javax.swing.JLabel();
-        lblCodigoPaciente = new javax.swing.JLabel();
-        txtCodigoPaciente = new javax.swing.JTextField();
+        lblCodigoDentista = new javax.swing.JLabel();
+        txtCodigoDentista = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -154,17 +160,18 @@ public class FormularioPaciente extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         lblEndereco = new javax.swing.JLabel();
         txtEndereco = new javax.swing.JTextField();
-        lblAnamnese = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtAreaAnamnese = new javax.swing.JTextArea();
+        lblSalario = new javax.swing.JLabel();
         btnAtualizar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+        lblCro = new javax.swing.JLabel();
+        txtCro = new javax.swing.JTextField();
+        txtSalario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setText("Atualizar Cadastro");
 
-        lblCodigoPaciente.setText("Código do Paciente");
+        lblCodigoDentista.setText("Código do Dentista");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -203,13 +210,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
 
         txtEndereco.setEnabled(false);
 
-        lblAnamnese.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblAnamnese.setText("Anamnese");
-
-        txtAreaAnamnese.setColumns(20);
-        txtAreaAnamnese.setRows(5);
-        txtAreaAnamnese.setEnabled(false);
-        jScrollPane2.setViewportView(txtAreaAnamnese);
+        lblSalario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblSalario.setText("Salário");
 
         btnAtualizar.setText("Atualizar");
         btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +227,13 @@ public class FormularioPaciente extends javax.swing.JFrame {
             }
         });
 
+        lblCro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblCro.setText("CRO");
+
+        txtCro.setEnabled(false);
+
+        txtSalario.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -233,9 +242,9 @@ public class FormularioPaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(lblCodigoPaciente)
+                        .addComponent(lblCodigoDentista)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCodigoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigoDentista, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBuscar))
                     .addGroup(layout.createSequentialGroup()
@@ -247,9 +256,9 @@ public class FormularioPaciente extends javax.swing.JFrame {
                                 .addComponent(btnAtualizar))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblAnamnese, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jScrollPane2))
+                                    .addComponent(txtSalario))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -269,7 +278,11 @@ public class FormularioPaciente extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblCro, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtCro, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(162, 162, 162)
                         .addComponent(lblTitulo)))
@@ -280,12 +293,12 @@ public class FormularioPaciente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCodigoPaciente)
-                    .addComponent(txtCodigoPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCodigoDentista)
+                    .addComponent(txtCodigoDentista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
-                .addGap(33, 33, 33)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -305,15 +318,19 @@ public class FormularioPaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEndereco)
                     .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAnamnese)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSalario)
+                    .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCro)
+                    .addComponent(txtCro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(91, 91, 91)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAtualizar)
                     .addComponent(btnLimpar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -324,8 +341,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscaIdPacientes();
-        idPaciente = Integer.parseInt(txtCodigoPaciente.getText());
+        buscaIdDentistas();
+        idDentista = Integer.parseInt(txtCodigoDentista.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -334,16 +351,15 @@ public class FormularioPaciente extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (modoEditar == true) {
-            paciente.editarPaciente(txtNome.getText(), txtCpf.getText(),
-                    txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(),
-                    txtAreaAnamnese.getText(), idPaciente);
+            dentista.editar(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), txtEmail.getText(),
+            txtEndereco.getText(), Double.parseDouble(txtSalario.getText()), txtCro.getText(), idDentista);
 
         } else if (modoExcluir == true) {
-            paciente.excluirPaciente(idPaciente);
+            dentista.excluir(idDentista);
 
         } else if (modoCadastrar == true) {
-            paciente.cadastrarPaciente(txtNome.getText(), txtCpf.getText(),
-                    txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), txtAreaAnamnese.getText());
+            dentista.cadastrar(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), 
+            txtEmail.getText(), txtEndereco.getText(), Double.parseDouble(txtSalario.getText()), txtCro.getText());
         }
         limpaTexto();
     }//GEN-LAST:event_btnAtualizarActionPerformed
@@ -365,14 +381,18 @@ public class FormularioPaciente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioDentista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioDentista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioDentista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioDentista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -381,7 +401,7 @@ public class FormularioPaciente extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioPaciente().setVisible(true);
+                new FormularioDentista().setVisible(true);
             }
         });
     }
@@ -390,21 +410,22 @@ public class FormularioPaciente extends javax.swing.JFrame {
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpar;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel lblAnamnese;
     private javax.swing.JLabel lblCelular;
-    private javax.swing.JLabel lblCodigoPaciente;
+    private javax.swing.JLabel lblCodigoDentista;
     private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblCro;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEndereco;
     private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lblSalario;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextArea txtAreaAnamnese;
     private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtCodigoPaciente;
+    private javax.swing.JTextField txtCodigoDentista;
     private javax.swing.JTextField txtCpf;
+    private javax.swing.JTextField txtCro;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtSalario;
     // End of variables declaration//GEN-END:variables
 }

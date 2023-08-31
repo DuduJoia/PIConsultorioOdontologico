@@ -113,4 +113,8 @@ public class PacienteDao extends Pessoa {
         }
         return lista;
     }
+    
+    public void Pesquisar(){
+        
+    }
 }

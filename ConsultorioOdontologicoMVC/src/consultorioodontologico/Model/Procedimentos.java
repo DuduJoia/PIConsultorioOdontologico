@@ -48,7 +48,7 @@ public class Procedimentos {
         return valor;
     }
     
-    public double getId(){
+    public int getId(){
         return id;
     }
     

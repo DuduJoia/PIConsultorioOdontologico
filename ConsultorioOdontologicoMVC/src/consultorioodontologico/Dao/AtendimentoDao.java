@@ -73,7 +73,7 @@ public class AtendimentoDao {
                     int codigoProcedimento = rs.getInt("cod_Procedimento");
 
                     Atendimento aten = new Atendimento(horario, data, codigoPaciente, codigoDentista, codigoAtendente, codigoProcedimento);
-                    aten.setIdAtendimento(rs.getInt("idAtendente"));
+                    aten.setIdAtendimento(rs.getInt("idAtendimento"));
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);

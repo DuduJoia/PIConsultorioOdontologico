@@ -8,7 +8,7 @@ public class ProcedimentosController {
 
     public void cadastrar(String nome, String descricao, double valor) {
         try {
-            if (!nome.equals("") && nome.length() < 21 && !descricao.equals("") && descricao.length() < 51
+            if (!nome.equals("") && nome.length() < 21 && !descricao.equals("") && descricao.length() < 200
                     && valor != 0) {
                 Procedimentos procedimento = new Procedimentos(nome, descricao, valor);
                 procedimento.adicionar(procedimento);
@@ -18,13 +18,17 @@ public class ProcedimentosController {
         }
     }
 
-    public void editar(String nome, String descricao, double valor) {
+    public void editar(String nome, String descricao, double valor, int idProcedimento) {
 
         try {
-            if (!nome.equals("") && nome.length() < 21 && !descricao.equals("") && descricao.length() < 51
+            if (!nome.equals("") && nome.length() < 21 && !descricao.equals("") && descricao.length() < 200
                     && valor != 0) {
                 Procedimentos procedimento = new Procedimentos(nome, descricao, valor);
+                procedimento.setId(idProcedimento);
                 procedimento.editar(procedimento);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Preencha os campos Corretamente");
             }
 
         } catch (Exception e) {

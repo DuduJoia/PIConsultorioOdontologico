@@ -8,6 +8,7 @@ package consultorioodontologico.Dao;
 import consultorioodontologico.Model.Procedimentos;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,64 +30,33 @@ public class ProcedimentosDao {
         
     }
     
-    public void setNome(String nome){
-        this.nome = nome;
-    }
-    
-    public void setDescricao(String descricao){
-        this.descricao = descricao;
-    }
-    
-    public void setValor(double valor){
-        this.valor = valor;
-    }
-    
-    public void setId(int id){
-        this.id = id;
-    }
-    
-    public String getNome(){
-        return nome;
-    }
-    
-    public String getDescricao(){
-        return descricao;
-    }
-    
-    public double getValor(){
-        return valor;
-    }
-    
-    public double getId(){
-        return id;
-    }
-    
-    public void dados(){
-        System.out.println("Nome: "+ this.getNome());
-        System.out.println("Descricao: "+ this.getDescricao());
-        System.out.println("Valor: "+ this.getValor());
-    }
-    
     public void adicionar(Procedimentos procedimento){
-        String sql = "INSERT INTO procedimentos (nome_procedimento,descricao,valor) values ("
+        String sql = "INSERT INTO procedimento (nome_procedimento,descricao,valor) values ("
                 +" '" + procedimento.getNome()          + "' ,"
                 +" '" + procedimento.getDescricao()     + "' ,"
                 +"  " + procedimento.getValor()         + " );";
         
         ModuloConexao.executar(sql);
+        
+        JOptionPane.showMessageDialog(null, "Procedimento cadastrado com sucesso");
     }
     
     public void excluir(int idProcedimento){
         String sql = "DELETE FROM procedimento where idProcedimento = " + idProcedimento;
         ModuloConexao.executar(sql);
+        
+        JOptionPane.showMessageDialog(null, "Procedimento Excluído com sucesso");
     }
     
     public void editar(Procedimentos procedimento){
         String sql = "UPDATE procedimento SET "
-                + "nome_procedimento = '"      + procedimento.getNome()   + "' "
-                + "descricao = '" + procedimento.getDescricao()   + "' "
-                + "valor = "      + procedimento.getValor()   + "  ";
+                + "nome_procedimento = '"      + procedimento.getNome()   + "', "
+                + "descricao = '" + procedimento.getDescricao()   + "', "
+                + "valor = "      + procedimento.getValor()   + "  "
+                + "Where idProcedimento = " + procedimento.getId();
         ModuloConexao.executar(sql);
+        
+        JOptionPane.showMessageDialog(null, "Procedimento atualizado com sucesso");
     }
     
     public ArrayList<Procedimentos> getProcedimentos(){
