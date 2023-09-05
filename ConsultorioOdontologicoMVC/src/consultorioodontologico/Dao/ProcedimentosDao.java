@@ -80,4 +80,27 @@ public class ProcedimentosDao {
         }
         return lista;
     }
+
+    public ArrayList<Procedimentos> pesquisar(String pesquisa) {
+        ArrayList<Procedimentos> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Procedimento WHERE nome_procedimento LIKE '"+pesquisa+"%';";
+        ResultSet rs = ModuloConexao.consultar(sql);
+        if(rs !=null){
+            try{
+                while(rs.next()){
+                    String nome = rs.getString("nome_procedimento");
+                    String descricao = rs.getString("descricao");
+                    double valor = rs.getDouble("valor");
+                    
+                    Procedimentos Proc = new Procedimentos(nome,descricao,valor);
+                    Proc.setId(rs.getInt("idProcedimento"));
+                    lista.add(Proc);
+                }
+            }catch(Exception e){
+                
+            }
+        }
+        return lista;
+        
+    }
 }

@@ -75,4 +75,13 @@ public class PacienteController {
         Paciente pac = new Paciente();
         return pac.getPacientes();
     }
+
+    public ArrayList<Paciente> pesquisar(String pesquisa) {
+        if (!pesquisa.equals("")) {
+            return paciente.pesquisar(pesquisa);
+        }
+        else{ JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquisa.");
+        return null;
+        }
+    }
 }

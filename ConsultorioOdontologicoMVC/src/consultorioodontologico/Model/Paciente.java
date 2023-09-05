@@ -54,8 +54,13 @@ public class Paciente extends Pessoa {
     }
 
     public ArrayList<Paciente> getPacientes() {
-        PacienteDao PacienteDao = new PacienteDao();
+        PacienteDao pacienteDao = new PacienteDao();
         
-        return PacienteDao.getPacientes();
+        return pacienteDao.getPacientes();
+    }
+    
+    public ArrayList<Paciente> pesquisar(String pesquisa){
+        PacienteDao pacienteDao = new PacienteDao();
+        return pacienteDao.Pesquisar(pesquisa);
     }
 }

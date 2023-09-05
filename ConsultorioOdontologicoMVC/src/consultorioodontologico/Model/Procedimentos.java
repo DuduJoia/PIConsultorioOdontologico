@@ -70,9 +70,14 @@ public class Procedimentos {
         new ProcedimentosDao().editar(procedimento);
     }
     
-    public static ArrayList<Procedimentos> getProcedimentos(){
+    public ArrayList<Procedimentos> getProcedimentos(){
         ProcedimentosDao procedimentosDao = new ProcedimentosDao();
         return procedimentosDao.getProcedimentos();
+    }
+
+    public ArrayList<Procedimentos> pesquisar(String pesquisa) {
+        ProcedimentosDao procedimentosDao = new ProcedimentosDao();
+        return procedimentosDao.pesquisar(pesquisa);
     }
     
     

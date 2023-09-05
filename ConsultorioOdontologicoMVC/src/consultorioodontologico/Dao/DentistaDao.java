@@ -111,6 +111,36 @@ public class DentistaDao extends Pessoa{
                 while (rs.next()) {
                     String nome = rs.getString("nome");
                     String cpf = rs.getString("cpf");
+                    String celular = rs.getString("celular");
+                    String email = rs.getString("email");
+                    String endereco = rs.getString("endereco");
+                    double salario = rs.getDouble("salario");
+                    String cro = rs.getString("cro");
+                    int idDentista = rs.getInt("idDentista");
+
+                    Dentista Dent = new Dentista(nome, cpf, celular, email, endereco, salario, cro);
+                    Dent.setIdDentista(idDentista);
+                    Dent.setIdPessoa(rs.getInt("cod_pessoa"));
+                    lista.add(Dent);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return lista;
+    }
+
+    public ArrayList<Dentista> pesquisar(String pesquisa) {
+        ArrayList<Dentista> lista = new ArrayList<>();
+        String sql = "SELECT d.idDentista, d.cod_pessoa, d.salario, d.cro, "
+                + "p.nome, p.cpf, p.celular, p.email, p.endereco "
+                + "FROM Dentista d JOIN Pessoa p ON d.cod_pessoa = p.idPessoa WHERE nome LIKE '"+pesquisa+"%'";
+        ResultSet rs = ModuloConexao.consultar(sql);
+        if (rs != null) {
+            try {
+                while (rs.next()) {
+                    String nome = rs.getString("nome");
+                    String cpf = rs.getString("cpf");
                     String email = rs.getString("email");
                     String celular = rs.getString("celular");
                     String endereco = rs.getString("endereco");
@@ -129,5 +159,4 @@ public class DentistaDao extends Pessoa{
         }
         return lista;
     }
-    
 }

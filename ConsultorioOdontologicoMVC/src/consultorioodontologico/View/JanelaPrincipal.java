@@ -33,40 +33,40 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     ArrayList<Paciente> ListaPacientes;
     ArrayList<Procedimentos> ListaProcedimentos;
     ArrayList<Atendimento> ListaAtendimentos;
-    
+
     PacienteController paciente = new PacienteController();
     DentistaController dentista = new DentistaController();
     ProcedimentosController procedimento = new ProcedimentosController();
     AtendimentoController atendimento = new AtendimentoController();
-    
+
     FormularioPaciente FormPac = new FormularioPaciente();
     FormularioDentista FormDent = new FormularioDentista();
     FormularioProcedimentos FormPro = new FormularioProcedimentos();
     boolean secaoPaciente = true, secaoDentista, secaoProcedimento, secaoHorario;
     String usuario = "";
-    
+
     public JanelaPrincipal() {
         initComponents();
         FormPac.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         FormDent.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         FormPro.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         atualizaTabelaPaciente();
-        
+
     }
-    
+
     public void transicionaTelaParaPaciente() {
         lblTitulo.setText("Pacientes");
         btnCadastrar.setVisible(true);
         btnExcluir.setVisible(true);
         btnEditar.setVisible(true);
-        
+
         secaoPaciente = true;
         secaoDentista = false;
         secaoProcedimento = false;
         secaoHorario = false;
         atualizaTabelaPaciente();
     }
-    
+
     public void atualizaTabelaPaciente() {
         ListaPacientes = null;
         ListaPacientes = paciente.getPacientes();
@@ -76,7 +76,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         model.setColumnCount(7);
         model.setColumnIdentifiers(columnNames);
         String[] postagem = {"", "", "", "", "", "", ""};
-        
+
         for (Paciente pac : ListaPacientes) {
             postagem[0] = String.valueOf(pac.getIdPaciente());
             postagem[1] = pac.getNome();
@@ -85,48 +85,69 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             postagem[4] = pac.getEmail();
             postagem[5] = pac.getEndereco();
             postagem[6] = pac.getAnamnese();
-            
+
             model.addRow(postagem);
         }
     }
-    
+
     public void transicionaTelaParaDentista() {
         lblTitulo.setText("Dentistas");
-        
+
         if (!usuario.equals("admin")) {
             btnCadastrar.setVisible(false);
             btnExcluir.setVisible(false);
             btnEditar.setVisible(false);
         }
-        
+
         secaoPaciente = false;
         secaoDentista = true;
         secaoProcedimento = false;
         secaoHorario = false;
-        
+
         atualizaTabelaDentista();
     }
-    
+
     public void atualizaTabelaDentista() {
         ListaDentistas = null;
         ListaDentistas = dentista.getDentistas();
-        
-        String columnNames[] = {"Código", "Nome", "Cro"};
-        DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
-        model.setRowCount(0);
-        model.setColumnCount(3);
-        model.setColumnIdentifiers(columnNames);
-        String[] postagem = {"", "", ""};
-        for (Dentista D : ListaDentistas) {
-            
-            postagem[0] = String.valueOf(D.getIdDentista());
-            postagem[1] = D.getNome();
-            postagem[2] = D.getCro();
-            
-            model.addRow(postagem);
+        if (usuario.equals("admin")) {
+            String columnNames[] = {"Código", "Nome", "cpf", "Celular", "Email", "Endereço", "Salário", "Cro"};
+            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(8);
+            model.setColumnIdentifiers(columnNames);
+            String[] postagem = {"", "", "", "", "", "", "", ""};
+            for (Dentista D : ListaDentistas) {
+
+                postagem[0] = String.valueOf(D.getIdDentista());
+                postagem[1] = D.getNome();
+                postagem[2] = D.getCpf();
+                postagem[3] = D.getCelular();
+                postagem[4] = D.getEmail();
+                postagem[5] = D.getEndereco();
+                postagem[6] = String.valueOf(D.getSalario());
+                postagem[7] = D.getCro();
+
+                model.addRow(postagem);
+            }
+        } else {
+            String columnNames[] = {"Código", "Nome", "Cro"};
+            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(3);
+            model.setColumnIdentifiers(columnNames);
+            String[] postagem = {"", "", ""};
+            for (Dentista D : ListaDentistas) {
+
+                postagem[0] = String.valueOf(D.getIdDentista());
+                postagem[1] = D.getNome();
+                postagem[2] = D.getCro();
+
+                model.addRow(postagem);
+            }
         }
     }
-    
+
     public void transicionaTelaParaProcedimentos() {
         lblTitulo.setText("Procedimentos");
         if (!usuario.equals("admin")) {
@@ -134,19 +155,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnExcluir.setVisible(false);
             btnEditar.setVisible(false);
         }
-        
+
         secaoPaciente = false;
         secaoDentista = false;
         secaoProcedimento = true;
         secaoHorario = false;
-        
+
         atualizaTabelaProcedimentos();
     }
-    
+
     public void atualizaTabelaProcedimentos() {
         ListaProcedimentos = null;
-        ListaProcedimentos = Procedimentos.getProcedimentos();
-        
+        ListaProcedimentos = procedimento.getProcedimentos();
+
         String columnNames[] = {"Código", "Nome", "Descricao", "Valor"};
         DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
         model.setRowCount(0);
@@ -154,39 +175,39 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         model.setColumnIdentifiers(columnNames);
         String[] postagem = {"", "", "", ""};
         for (Procedimentos pro : ListaProcedimentos) {
-            
+
             postagem[0] = String.valueOf(pro.getId());
             postagem[1] = pro.getNome();
             postagem[2] = pro.getDescricao();
             postagem[3] = String.valueOf(pro.getValor());
-            
+
             model.addRow(postagem);
         }
     }
-    
+
     public void transicionaTelaParaHorarios() {
         lblTitulo.setText("Horários");
         btnCadastrar.setVisible(true);
         btnCadastrar.setText("Agendar");
         btnExcluir.setVisible(true);
         btnEditar.setVisible(true);
-        
+
         secaoPaciente = false;
         secaoDentista = false;
         secaoProcedimento = true;
         secaoHorario = true;
-        
+
         atualizaTabelaHorarios();
     }
-    
+
     public void atualizaTabelaHorarios() {
-        
+
         String columnNames[] = {"Código", "Horário", "Data", "Paciente", "Dentista", "Procedimento", "Valor"};
         DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
         model.setRowCount(0);
         model.setColumnCount(7);
         model.setColumnIdentifiers(columnNames);
-        
+
         String tabela[] = {"", "", "", "", "", "", ""};
         String sql = "SELECT A.idAtendimento, A.horario, A.data, PP.nome AS nome_paciente, PD.nome AS nome_dentista,"
                 + " PR.nome_procedimento AS procedimento, PR.valor, PAT.nome as nome_atendente, ATE.idAtendente "
@@ -194,7 +215,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 + "JOIN pessoa PP ON P.cod_pessoa = PP.idPessoa JOIN dentista D ON A.cod_dentista = D.idDentista "
                 + "JOIN pessoa PD ON D.cod_pessoa = PD.idPessoa JOIN procedimento PR ON A.cod_procedimento = PR.idProcedimento "
                 + "JOIN Atendente ATE ON A.cod_Atendente = ATE.idAtendente JOIN Pessoa PAT ON ATE.cod_pessoa = PAT.idPessoa;";
-        
+
         ResultSet rs = ModuloConexao.consultar(sql);
         if (rs != null) {
             try {
@@ -210,17 +231,141 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
-            
+
             model.addRow(tabela);
         }
     }
-    
+
     public void CarregaUsuário(String user) {
         usuario = user;
         lblUser.setText("Usuário: " + usuario);
-        
     }
-    
+
+    public void pesquisaPacienteOuDentista(String nome) {
+        if (secaoPaciente) {
+            ListaPacientes = null;
+            ListaPacientes = paciente.pesquisar(nome);
+            String columnNames[] = {"Código", "Nome", "CPF", "Celular", "Email", "Endereco", "Anamnese"};
+            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(7);
+            model.setColumnIdentifiers(columnNames);
+            String[] postagem = {"", "", "", "", "", "", ""};
+
+            for (Paciente pac : ListaPacientes) {
+                postagem[0] = String.valueOf(pac.getIdPaciente());
+                postagem[1] = pac.getNome();
+                postagem[2] = pac.getCpf();
+                postagem[3] = pac.getCelular();
+                postagem[4] = pac.getEmail();
+                postagem[5] = pac.getEndereco();
+                postagem[6] = pac.getAnamnese();
+
+                model.addRow(postagem);
+            }
+        } else if (secaoDentista) {
+            ListaDentistas = null;
+            ListaDentistas = dentista.pesquisar(nome);
+            if (usuario.equals("admin")) {
+                String columnNames[] = {"Código", "Nome", "cpf", "Celular", "Email", "Endereço", "Salário", "Cro"};
+                DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+                model.setRowCount(0);
+                model.setColumnCount(8);
+                model.setColumnIdentifiers(columnNames);
+                String[] postagem = {"", "", "", "", "", "", "", ""};
+                for (Dentista D : ListaDentistas) {
+
+                    postagem[0] = String.valueOf(D.getIdDentista());
+                    postagem[1] = D.getNome();
+                    postagem[2] = D.getCpf();
+                    postagem[3] = D.getCelular();
+                    postagem[4] = D.getEmail();
+                    postagem[5] = D.getEndereco();
+                    postagem[6] = String.valueOf(D.getSalario());
+                    postagem[7] = D.getCro();
+
+                    model.addRow(postagem);
+                }
+            } else {
+                String columnNames[] = {"Código", "Nome", "Cro"};
+                DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+                model.setRowCount(0);
+                model.setColumnCount(3);
+                model.setColumnIdentifiers(columnNames);
+                String[] postagem = {"", "", ""};
+                for (Dentista D : ListaDentistas) {
+
+                    postagem[0] = String.valueOf(D.getIdDentista());
+                    postagem[1] = D.getNome();
+                    postagem[2] = D.getCro();
+
+                    model.addRow(postagem);
+                }
+            }
+        }
+    }
+
+    public void pesquisarProcedimentos(String nome) {
+        if (secaoProcedimento) {
+            ListaProcedimentos = null;
+            ListaProcedimentos = procedimento.pesquisar(nome);
+
+            String columnNames[] = {"Código", "Nome", "Descricao", "Valor"};
+            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(4);
+            model.setColumnIdentifiers(columnNames);
+            String[] postagem = {"", "", "", ""};
+            for (Procedimentos pro : ListaProcedimentos) {
+
+                postagem[0] = String.valueOf(pro.getId());
+                postagem[1] = pro.getNome();
+                postagem[2] = pro.getDescricao();
+                postagem[3] = String.valueOf(pro.getValor());
+
+                model.addRow(postagem);
+            }
+        }
+    }
+
+    public void pesquisarAtendimento(String nome) {
+        if (secaoHorario) {
+            String columnNames[] = {"Código", "Horário", "Data", "Paciente", "Dentista", "Procedimento", "Valor"};
+            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(7);
+            model.setColumnIdentifiers(columnNames);
+
+            String tabela[] = {"", "", "", "", "", "", ""};
+            String sql = "SELECT A.idAtendimento, A.horario, A.data, PP.nome AS nome_paciente, PD.nome AS nome_dentista,"
+                    + " PR.nome_procedimento AS procedimento, PR.valor, PAT.nome as nome_atendente, ATE.idAtendente "
+                    + "FROM atendimento A JOIN paciente P ON A.cod_paciente = P.idPaciente "
+                    + "JOIN pessoa PP ON P.cod_pessoa = PP.idPessoa JOIN dentista D ON A.cod_dentista = D.idDentista "
+                    + "JOIN pessoa PD ON D.cod_pessoa = PD.idPessoa JOIN procedimento PR ON A.cod_procedimento = PR.idProcedimento "
+                    + "JOIN Atendente ATE ON A.cod_Atendente = ATE.idAtendente JOIN Pessoa PAT ON ATE.cod_pessoa = PAT.idPessoa "
+                    + "WHERE PP.nome LIKE '"+nome+"%'";
+
+            ResultSet rs = ModuloConexao.consultar(sql);
+            if (rs != null) {
+                try {
+                    while (rs.next()) {
+                        tabela[0] = rs.getString(1);
+                        tabela[1] = rs.getString(2);
+                        tabela[2] = rs.getString(3);
+                        tabela[3] = rs.getString(4);
+                        tabela[4] = rs.getString(5);
+                        tabela[5] = rs.getString(6);
+                        tabela[6] = rs.getString(7);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+
+                model.addRow(tabela);
+            }
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -438,6 +583,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btnPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPacienteActionPerformed
         transicionaTelaParaPaciente();
+
     }//GEN-LAST:event_btnPacienteActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesquisaActionPerformed
@@ -453,10 +599,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             FormDent.transicaoCadastrar();
             FormDent.setVisible(true);
         }
-        if(secaoProcedimento){
+        if (secaoProcedimento) {
             FormPro.transicaoCadastrar();
             FormPro.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -473,32 +619,35 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             FormDent.transicaoEditar();
             FormDent.setVisible(true);
         }
-        if(secaoProcedimento){
+        if (secaoProcedimento) {
             FormPro.transicaoEditar();
             FormPro.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        if(secaoPaciente){
+        if (secaoPaciente) {
             FormPac.transicaoExcluir();
             FormPac.setVisible(true);
         }
-        if(secaoDentista){
+        if (secaoDentista) {
             FormDent.transicaoExcluir();
             FormDent.setVisible(true);
         }
-        if(secaoProcedimento){
+        if (secaoProcedimento) {
             FormPro.transicaoExcluir();
-            FormPro.setVisible(true);   
+            FormPro.setVisible(true);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnPesquiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquiarActionPerformed
-        // TODO add your handling code here:
+        pesquisaPacienteOuDentista(txtPesquisa.getText());
+        pesquisarProcedimentos(txtPesquisa.getText());
+        pesquisarAtendimento(txtPesquisa.getText());
+
     }//GEN-LAST:event_btnPesquiarActionPerformed
 
     private void btnProcedimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcedimentosActionPerformed
@@ -515,7 +664,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (secaoProcedimento) {
             atualizaTabelaProcedimentos();
         }
-        
+
         if (secaoHorario) {
             atualizaTabelaHorarios();
         }
@@ -539,16 +688,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JanelaPrincipal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

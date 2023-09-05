@@ -49,4 +49,15 @@ public class ProcedimentosController {
         Procedimentos procedimento = new Procedimentos();
         return procedimento.getProcedimentos();
     }
+    
+    public ArrayList<Procedimentos> pesquisar(String pesquisa){
+        if(!pesquisa.equals("")){
+            Procedimentos procedimento = new Procedimentos();
+            return procedimento.pesquisar(pesquisa);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquias.");
+            return null;
+        }
+    }
 }

@@ -77,4 +77,14 @@ public class DentistaController {
         Dentista dentista = new Dentista();
         return dentista.getDentistas();
     }
+    
+    public ArrayList<Dentista> pesquisar(String pesquisa){
+        if(!pesquisa.equals("")){
+           return dentista.pesquisar(pesquisa);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquisa.");
+            return null;
+        }
+    }
 }

@@ -16,7 +16,11 @@ import javax.swing.JOptionPane;
  */
 public class AtendimentoDao {
 
-    public void marcarAtendimento(Atendimento atendimento) {
+    public AtendimentoDao() {
+
+    }
+
+    public void cadastrar(Atendimento atendimento) {
         try {
             String sql = "INSERT INTO atendimento(horario,data,cod_paciente,cod_dentista,cod_atendente,cod_procedimento) "
                     + "VALUES( '" + atendimento.getHorario() + "', "
@@ -74,6 +78,7 @@ public class AtendimentoDao {
 
                     Atendimento aten = new Atendimento(horario, data, codigoPaciente, codigoDentista, codigoAtendente, codigoProcedimento);
                     aten.setIdAtendimento(rs.getInt("idAtendimento"));
+                    lista.add(aten);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);

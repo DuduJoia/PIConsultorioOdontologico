@@ -60,4 +60,9 @@ public class Dentista extends Pessoa {
         DentistaDao DentistaDao = new DentistaDao();
         return DentistaDao.getDentistas();
     }
+
+    public ArrayList<Dentista> pesquisar(String pesquisa) {
+        DentistaDao dentistaDao = new DentistaDao();
+        return dentistaDao.pesquisar(pesquisa);
+    }
 }
