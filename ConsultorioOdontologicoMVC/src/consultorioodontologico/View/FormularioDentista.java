@@ -9,6 +9,7 @@ import consultorioodontologico.Dao.ModuloConexao;
 import consultorioodontologico.Model.Dentista;
 import java.sql.*;
 import java.util.ArrayList;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,7 +28,6 @@ public class FormularioDentista extends javax.swing.JFrame {
         initComponents();
         conexao = ModuloConexao.conector();
         limpaTexto();
-
         listaDentistas = dentista.getDentistas();
 
     }
@@ -153,9 +153,7 @@ public class FormularioDentista extends javax.swing.JFrame {
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         lblCpf = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
         lblCelular = new javax.swing.JLabel();
-        txtCelular = new javax.swing.JTextField();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         lblEndereco = new javax.swing.JLabel();
@@ -165,13 +163,21 @@ public class FormularioDentista extends javax.swing.JFrame {
         btnLimpar = new javax.swing.JButton();
         lblCro = new javax.swing.JLabel();
         txtCro = new javax.swing.JTextField();
-        txtSalario = new javax.swing.JTextField();
+        txtCpf = new javax.swing.JFormattedTextField();
+        txtSalario = new javax.swing.JFormattedTextField();
+        txtCelular = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setText("Atualizar Cadastro");
 
         lblCodigoDentista.setText("Código do Dentista");
+
+        txtCodigoDentista.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoDentistaKeyTyped(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -193,12 +199,8 @@ public class FormularioDentista extends javax.swing.JFrame {
         lblCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblCpf.setText("CPF");
 
-        txtCpf.setEnabled(false);
-
         lblCelular.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblCelular.setText("Celular");
-
-        txtCelular.setEnabled(false);
 
         lblEmail.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblEmail.setText("Email");
@@ -232,7 +234,22 @@ public class FormularioDentista extends javax.swing.JFrame {
 
         txtCro.setEnabled(false);
 
+        try {
+            txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtCpf.setEnabled(false);
+
+        try {
+            txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####.##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         txtSalario.setEnabled(false);
+        txtSalario.setFocusLostBehavior(JFormattedTextField.COMMIT);
+
+        txtCelular.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -256,17 +273,13 @@ public class FormularioDentista extends javax.swing.JFrame {
                                 .addComponent(btnAtualizar))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtSalario))
-                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCpf))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCelular))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
@@ -278,11 +291,15 @@ public class FormularioDentista extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblCro, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCro, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblCro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtCro, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                        .addComponent(txtSalario))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(162, 162, 162)
                         .addComponent(lblTitulo)))
@@ -364,6 +381,14 @@ public class FormularioDentista extends javax.swing.JFrame {
         limpaTexto();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    private void txtCodigoDentistaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoDentistaKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCodigoDentistaKeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -421,11 +446,11 @@ public class FormularioDentista extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCodigoDentista;
-    private javax.swing.JTextField txtCpf;
+    private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtCro;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtSalario;
+    private javax.swing.JFormattedTextField txtSalario;
     // End of variables declaration//GEN-END:variables
 }

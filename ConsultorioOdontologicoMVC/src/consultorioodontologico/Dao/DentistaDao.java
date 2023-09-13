@@ -92,7 +92,7 @@ public class DentistaDao extends Pessoa{
             String sql = "UPDATE dentista SET "
                     + " salario = " + dentista.getSalario() + " , "
                     + " cro = '" + dentista.getCro() + "'  "
-                    + " where Dentista = " + dentista.getIdDentista() + ";  ";
+                    + " where idDentista = " + dentista.getIdDentista() + ";  ";
             
             JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
