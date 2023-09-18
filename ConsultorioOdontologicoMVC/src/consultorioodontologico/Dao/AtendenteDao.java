@@ -106,7 +106,7 @@ public class AtendenteDao extends Pessoa {
 
     public ArrayList<Atendente> getAtendentes() {
         ArrayList<Atendente> lista = new ArrayList<>();
-        String sql = "SELECT pes.nome,cpf,email,celular,endereco,aten.idAtendente,salario,login,senha,cod_pessoa FROM Pessoa AS pes INNER JOIN Atendente AS aten ON (pes.idPessoa = aten.cod_pessoa";
+        String sql = "SELECT pes.nome,cpf,email,celular,endereco,aten.idAtendente,salario,login,senha,cod_pessoa FROM Pessoa pes INNER JOIN Atendente aten ON pes.idPessoa = aten.cod_pessoa";
         ResultSet rs = ModuloConexao.consultar(sql);
         if (rs != null) {
             try {
@@ -117,8 +117,8 @@ public class AtendenteDao extends Pessoa {
                     String celular = rs.getString("celular");
                     String endereco = rs.getString("endereco");
                     double salario = rs.getDouble("salario");
+                    String login = rs.getString("login");
                     String senha = rs.getString("senha");
-                    String login = rs.getString("senha");
 
                     Atendente Atend = new Atendente(nome, cpf, celular, email, endereco, salario, login, senha);
                     Atend.setIdAtendente(rs.getInt("idAtendente"));

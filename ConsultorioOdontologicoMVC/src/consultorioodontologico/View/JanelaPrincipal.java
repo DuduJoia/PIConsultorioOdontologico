@@ -5,11 +5,13 @@
  */
 package consultorioodontologico.View;
 
+import consultorioodontologico.Controller.AtendenteController;
 import consultorioodontologico.Controller.AtendimentoController;
 import consultorioodontologico.Controller.DentistaController;
 import consultorioodontologico.Controller.PacienteController;
 import consultorioodontologico.Controller.ProcedimentosController;
 import consultorioodontologico.Dao.ModuloConexao;
+import consultorioodontologico.Model.Atendente;
 import consultorioodontologico.Model.Atendimento;
 import consultorioodontologico.Model.Dentista;
 import consultorioodontologico.Model.Paciente;
@@ -33,7 +35,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     ArrayList<Paciente> ListaPacientes;
     ArrayList<Procedimentos> ListaProcedimentos;
     ArrayList<Atendimento> ListaAtendimentos;
+    ArrayList<Atendente> ListaAtendentes;
 
+    AtendenteController atendente = new AtendenteController();
     PacienteController paciente = new PacienteController();
     DentistaController dentista = new DentistaController();
     ProcedimentosController procedimento = new ProcedimentosController();
@@ -42,8 +46,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     FormularioPaciente FormPac = new FormularioPaciente();
     FormularioDentista FormDent = new FormularioDentista();
     FormularioProcedimentos FormPro = new FormularioProcedimentos();
+    FormularioAtendimento FormAte = new FormularioAtendimento();
+    
     boolean secaoPaciente = true, secaoDentista, secaoProcedimento, secaoHorario;
     String usuario = "";
+    int idUser = 0;
 
     public JanelaPrincipal() {
         initComponents();
@@ -56,6 +63,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     public void transicionaTelaParaPaciente() {
         lblTitulo.setText("Pacientes");
+        btnCadastrar.setText("Cadastrar");
+        
         btnCadastrar.setVisible(true);
         btnExcluir.setVisible(true);
         btnEditar.setVisible(true);
@@ -92,6 +101,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     public void transicionaTelaParaDentista() {
         lblTitulo.setText("Dentistas");
+        btnCadastrar.setText("Cadastrar");
 
         if (!usuario.equals("admin")) {
             btnCadastrar.setVisible(false);
@@ -150,6 +160,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     public void transicionaTelaParaProcedimentos() {
         lblTitulo.setText("Procedimentos");
+        btnCadastrar.setText("Cadastrar");
         if (!usuario.equals("admin")) {
             btnCadastrar.setVisible(false);
             btnExcluir.setVisible(false);
@@ -239,6 +250,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public void CarregaUsuário(String user) {
         usuario = user;
         lblUser.setText("Usuário: " + usuario);
+        ListaAtendentes = atendente.getAtendente();
+        
+        for(Atendente a : ListaAtendentes){
+            if(a.getLogin().equals(user)){
+                idUser = a.getIdAtendente();
+            }
+        }
     }
 
     public void pesquisaPacienteOuDentista(String nome) {
@@ -378,6 +396,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btnProcedimentos = new javax.swing.JButton();
         lblUser = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnHorários1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDados = new javax.swing.JTable();
         lblTitulo = new javax.swing.JLabel();
@@ -436,6 +455,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Consultório");
 
+        btnHorários1.setBackground(new java.awt.Color(38, 90, 92));
+        btnHorários1.setForeground(new java.awt.Color(255, 255, 255));
+        btnHorários1.setText("Atendente");
+        btnHorários1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHorários1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -443,18 +471,24 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUser)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnHorários, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDentista, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnProcedimentos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblUser)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnHorários, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnDentista, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnProcedimentos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel2)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel2)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(btnHorários1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,6 +503,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnProcedimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnHorários, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnHorários1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblUser)
                 .addGap(42, 42, 42))
@@ -556,7 +592,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCadastrar)
                         .addGap(3, 3, 3)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -603,6 +639,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             FormPro.transicaoCadastrar();
             FormPro.setVisible(true);
 
+        }
+        if(secaoHorario) {
+            FormAte.setVisible(true);
+            FormAte.carregaAtendente(idUser);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -674,6 +714,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         transicionaTelaParaHorarios();
     }//GEN-LAST:event_btnHoráriosActionPerformed
 
+    private void btnHorários1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHorários1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHorários1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -723,6 +767,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnHorários;
+    private javax.swing.JButton btnHorários1;
     private javax.swing.JButton btnPaciente;
     private javax.swing.JButton btnPesquiar;
     private javax.swing.JButton btnProcedimentos;
