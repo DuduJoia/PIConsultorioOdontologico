@@ -70,6 +70,8 @@ public class AtendenteDao extends Pessoa {
                     + "  " + atendente.getIdPessoa() + "); ";
 
             ModuloConexao.executar(sql);
+            
+            JOptionPane.showMessageDialog(null, "Atendente cadastrado com sucesso.");
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -84,6 +86,7 @@ public class AtendenteDao extends Pessoa {
 
             this.excluirPessoa(this.getIdPessoa());
 
+            JOptionPane.showMessageDialog(null, "Atendente excluiído com sucesso");
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -99,6 +102,7 @@ public class AtendenteDao extends Pessoa {
                     + " Senha = '" + atendente.getLogin() + "',  "
                     + " where idAtendente = " + atendente.getIdAtendente() + ";  ";
             ModuloConexao.executar(sql);
+            JOptionPane.showMessageDialog(null, "Atendente atualizado com sucesso");
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
@@ -157,5 +161,33 @@ public class AtendenteDao extends Pessoa {
 
         }
         return verificador;
+    }
+    
+    public ArrayList<Atendente> Pesquisar(String pesquisa) {
+        ArrayList<Atendente> lista = new ArrayList<>();
+            String sql = "Select P.nome, P.cpf, P.celular, P.email, P.endereco, P.endereco, A.salario, A.login, A.senha FROM Atendente A INNER JOIN Pessoa P on A.cod_pessoa = P.idPessoa WHERE P.nome LIKE '" + pesquisa + "%'"; 
+        ResultSet rs = ModuloConexao.consultar(sql);
+        if (rs != null) {
+            try {
+                while (rs.next()) {
+                    String nome = rs.getString("nome");
+                    String cpf = rs.getString("cpf");
+                    String celular = rs.getString("celular");
+                    String email = rs.getString("email");
+                    String endereco = rs.getString("endereco");
+                    double salario = rs.getDouble("salario");
+                    String login = rs.getString("login");
+                    String senha = rs.getString("senha");
+
+                    Atendente Aten = new Atendente(nome, cpf, celular, email, endereco, salario, login, senha);
+                    Aten.setIdAtendente(rs.getInt("idAtendente"));
+                    Aten.setIdPessoa(rs.getInt("cod_Pessoa"));
+                    lista.add(Aten);
+                }
+            } catch (Exception e) {
+
+            }
+        }
+        return lista;
     }
 }

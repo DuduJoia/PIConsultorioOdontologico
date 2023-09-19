@@ -124,7 +124,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnHorários1" max="32767" attributes="0"/>
+                          <Component id="btnAtendente" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -145,7 +145,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnHorários" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnHorários1" min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="btnAtendente" min="-2" pref="60" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="lblUser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
@@ -226,7 +226,7 @@
             <Property name="text" type="java.lang.String" value="Consult&#xf3;rio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnHor&#xe1;rios1">
+        <Component class="javax.swing.JButton" name="btnAtendente">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="5c" green="5a" red="26" type="rgb"/>
@@ -237,7 +237,7 @@
             <Property name="text" type="java.lang.String" value="Atendente"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHor&#xe1;rios1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtendenteActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -29,9 +29,9 @@ public class AtendenteController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     public void editar(String nome, String cpf, String celular, String email,
-            String endereco, double salario, String login, String senha) {
+            String endereco, double salario, String login, String senha, int idAtendente) {
         try {
             if (!nome.equals("") && nome.length() < 41 && !cpf.equals("") && cpf.length() < 15
                     && !celular.equals("") && celular.length() < 12 && !email.equals("") && email.length() < 46
@@ -44,15 +44,25 @@ public class AtendenteController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    public void excluir(int idAtendente){
+
+    public void excluir(int idAtendente) {
         Atendente atendente = new Atendente();
-            atendente.excluir(idAtendente);
+        atendente.excluir(idAtendente);
     }
-    
-    public ArrayList<Atendente> getAtendente(){
+
+    public ArrayList<Atendente> getAtendentes() {
         Atendente atendente = new Atendente();
         return atendente.getAtendentes();
+    }
+
+    public ArrayList<Atendente> Pesquisar(String pesquisa) {
+        if (!pesquisa.equals("")) {
+            Atendente atendente = new Atendente();
+            return atendente.pesquisar(pesquisa);
+        } else {
+            JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquisa");
+            return null;
+        }
     }
 
     public boolean logar(String user, String senha) {

@@ -97,9 +97,9 @@ public class PacienteDao extends Pessoa {
                 while (rs.next()) {
                     String nome = rs.getString("nome");
                     String cpf = rs.getString("cpf");
+                    String celular = rs.getString("celular");
                     String email = rs.getString("email");
                     String endereco = rs.getString("endereco");
-                    String celular = rs.getString("celular");
                     String anamnese = rs.getString("anamnese");
 
                     Paciente Pac = new Paciente(nome, cpf, celular, email, endereco, anamnese);
@@ -124,9 +124,9 @@ public class PacienteDao extends Pessoa {
                 while (rs.next()) {
                     String nome = rs.getString("nome");
                     String cpf = rs.getString("cpf");
+                    String celular = rs.getString("celular");
                     String email = rs.getString("email");
                     String endereco = rs.getString("endereco");
-                    String celular = rs.getString("celular");
                     String anamnese = rs.getString("anamnese");
 
                     Paciente Pac = new Paciente(nome, cpf, celular, email, endereco, anamnese);

@@ -77,6 +77,11 @@ public class Atendente extends Pessoa {
         return atendenteDao.getAtendentes();
     }
     
+    public ArrayList<Atendente> pesquisar(String pesquisa){
+        AtendenteDao atendenteDao = new AtendenteDao();
+        return atendenteDao.Pesquisar(pesquisa);
+    }
+    
     public boolean logar(String user, String senha){
         AtendenteDao atendenteDao = new AtendenteDao();
         boolean verificador = false;
