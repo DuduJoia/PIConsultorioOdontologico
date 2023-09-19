@@ -16,7 +16,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class FormularioHorário extends javax.swing.JFrame {
+public class FormularioAtendimento extends javax.swing.JFrame {
 
     ArrayList<Dentista> listaDentistas = new DentistaController().getDentistas();
     ArrayList<Paciente> listaPacientes = new PacienteController().getPacientes();
@@ -24,13 +24,13 @@ public class FormularioHorário extends javax.swing.JFrame {
     ArrayList<Atendimento> listaAtendimentos = new AtendimentoController().getAtendimentos();
 
     AtendimentoController atendimentoController = new AtendimentoController();
-    int idPaciente = 0, idDentista = 0, idProcedimentos = 0;
+    int idPaciente = 0, idDentista = 0, idProcedimento = 0, idAtendente = 0;
 
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    public FormularioHorário() {
+    public FormularioAtendimento() {
         initComponents();
         carregaDentistas();
         carregaPacientes();
@@ -48,6 +48,11 @@ public class FormularioHorário extends javax.swing.JFrame {
         listaProcedimentos = new ProcedimentosController().getProcedimentos();
         listaAtendimentos = new AtendimentoController().getAtendimentos();
 
+    }
+    
+    public void carregaAtendente(int idDoAtendente){
+        idAtendente = idDoAtendente;
+        
     }
 
     public void carregaDentistas() {
@@ -76,18 +81,10 @@ public class FormularioHorário extends javax.swing.JFrame {
         cbxHorario.removeAllItems();
         cbxHorario.addItem("Selecione");
         resetaArrays();
-        for (int i = 9; i <= 20; i++) {
-            for (Atendimento a : listaAtendimentos) {
-                if (!a.getHorario().equals(i + ":00")) {
-                    cbxHorario.addItem(i + ":00");
-                }
-            }
-        }
     }
     
     public void marcarHorario(){
-        
-        
+        atendimentoController.cadastraAtendimento(String.valueOf(cbxHorario.getSelectedItem()),txtData.getText() , idPaciente, idDentista, idAtendente, idProcedimento);        
     }
 
     @SuppressWarnings("unchecked")
@@ -313,7 +310,7 @@ public class FormularioHorário extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxPacienteItemStateChanged
 
     private void cbxHorarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxHorarioItemStateChanged
-        
+        System.out.println(cbxHorario.getSelectedItem());        
     }//GEN-LAST:event_cbxHorarioItemStateChanged
 
     private void cbxProcedimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProcedimentoActionPerformed
@@ -328,8 +325,9 @@ public class FormularioHorário extends javax.swing.JFrame {
         resetaArrays();
         for (Procedimentos p : listaProcedimentos) {
             if (p.getNome().equals(cbxProcedimento.getSelectedItem())) {
-                idProcedimentos = p.getId();
+                idProcedimento = p.getId();
                 lblValor.setText("R$" + p.getValor());
+                System.out.println(idProcedimento);
                 
             }
         }
@@ -367,27 +365,21 @@ public class FormularioHorário extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioHorário.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioHorário.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioHorário.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioHorário.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormularioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormularioHorário().setVisible(true);
+                new FormularioAtendimento().setVisible(true);
             }
         });
     }

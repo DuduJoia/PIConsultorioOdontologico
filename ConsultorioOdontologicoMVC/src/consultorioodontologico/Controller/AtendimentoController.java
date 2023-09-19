@@ -20,7 +20,7 @@ public class AtendimentoController {
     }
 
     public void cadastraAtendimento(String horario, String data, int idPaciente, int idDentista, int idAtendente, int idProcedimento) {
-        if (!horario.equals("Selecione") && !data.equals("Selecione")
+        if (!horario.equals("Selecione") && !data.equals("")
                 && idPaciente != 0 && idDentista != 0 && idAtendente != 0 && idProcedimento != 0) {
             Atendimento atendimento = new Atendimento(horario, data, idPaciente, idDentista, idAtendente, idProcedimento);
             atendimento.cadastrar(atendimento);
