@@ -86,7 +86,7 @@ public class FormularioHorário extends javax.swing.JFrame {
     }
     
     public void marcarHorario(){
-        atendimentoController.cadastraAtendimento(String.valueOf(cbxHorario.getSelectedItem(),txtData.getText() , idPaciente, idDentista, idPaciente, idProcedimentos);
+        
         
     }
 
@@ -269,9 +269,9 @@ public class FormularioHorário extends javax.swing.JFrame {
                     .addComponent(lblDentista)
                     .addComponent(cbxDentista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHorario))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHorario, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblProcedimento)

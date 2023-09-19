@@ -56,7 +56,7 @@ public class ProcedimentosController {
             return procedimento.pesquisar(pesquisa);
         }
         else{
-            JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquias.");
+            JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquisa.");
             return null;
         }
     }

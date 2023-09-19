@@ -245,61 +245,65 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (secaoPaciente) {
             ListaPacientes = null;
             ListaPacientes = paciente.pesquisar(nome);
-            String columnNames[] = {"Código", "Nome", "CPF", "Celular", "Email", "Endereco", "Anamnese"};
-            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
-            model.setRowCount(0);
-            model.setColumnCount(7);
-            model.setColumnIdentifiers(columnNames);
-            String[] postagem = {"", "", "", "", "", "", ""};
+            if (ListaPacientes != null) {
+                String columnNames[] = {"Código", "Nome", "CPF", "Celular", "Email", "Endereco", "Anamnese"};
+                DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+                model.setRowCount(0);
+                model.setColumnCount(7);
+                model.setColumnIdentifiers(columnNames);
+                String[] postagem = {"", "", "", "", "", "", ""};
 
-            for (Paciente pac : ListaPacientes) {
-                postagem[0] = String.valueOf(pac.getIdPaciente());
-                postagem[1] = pac.getNome();
-                postagem[2] = pac.getCpf();
-                postagem[3] = pac.getCelular();
-                postagem[4] = pac.getEmail();
-                postagem[5] = pac.getEndereco();
-                postagem[6] = pac.getAnamnese();
+                for (Paciente pac : ListaPacientes) {
+                    postagem[0] = String.valueOf(pac.getIdPaciente());
+                    postagem[1] = pac.getNome();
+                    postagem[2] = pac.getCpf();
+                    postagem[3] = pac.getCelular();
+                    postagem[4] = pac.getEmail();
+                    postagem[5] = pac.getEndereco();
+                    postagem[6] = pac.getAnamnese();
 
-                model.addRow(postagem);
+                    model.addRow(postagem);
+                }
             }
         } else if (secaoDentista) {
             ListaDentistas = null;
             ListaDentistas = dentista.pesquisar(nome);
-            if (usuario.equals("admin")) {
-                String columnNames[] = {"Código", "Nome", "cpf", "Celular", "Email", "Endereço", "Salário", "Cro"};
-                DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
-                model.setRowCount(0);
-                model.setColumnCount(8);
-                model.setColumnIdentifiers(columnNames);
-                String[] postagem = {"", "", "", "", "", "", "", ""};
-                for (Dentista D : ListaDentistas) {
+            if (ListaDentistas != null) {
+                if (usuario.equals("admin")) {
+                    String columnNames[] = {"Código", "Nome", "cpf", "Celular", "Email", "Endereço", "Salário", "Cro"};
+                    DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+                    model.setRowCount(0);
+                    model.setColumnCount(8);
+                    model.setColumnIdentifiers(columnNames);
+                    String[] postagem = {"", "", "", "", "", "", "", ""};
+                    for (Dentista D : ListaDentistas) {
 
-                    postagem[0] = String.valueOf(D.getIdDentista());
-                    postagem[1] = D.getNome();
-                    postagem[2] = D.getCpf();
-                    postagem[3] = D.getCelular();
-                    postagem[4] = D.getEmail();
-                    postagem[5] = D.getEndereco();
-                    postagem[6] = String.valueOf(D.getSalario());
-                    postagem[7] = D.getCro();
+                        postagem[0] = String.valueOf(D.getIdDentista());
+                        postagem[1] = D.getNome();
+                        postagem[2] = D.getCpf();
+                        postagem[3] = D.getCelular();
+                        postagem[4] = D.getEmail();
+                        postagem[5] = D.getEndereco();
+                        postagem[6] = String.valueOf(D.getSalario());
+                        postagem[7] = D.getCro();
 
-                    model.addRow(postagem);
-                }
-            } else {
-                String columnNames[] = {"Código", "Nome", "Cro"};
-                DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
-                model.setRowCount(0);
-                model.setColumnCount(3);
-                model.setColumnIdentifiers(columnNames);
-                String[] postagem = {"", "", ""};
-                for (Dentista D : ListaDentistas) {
+                        model.addRow(postagem);
+                    }
+                } else {
+                    String columnNames[] = {"Código", "Nome", "Cro"};
+                    DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+                    model.setRowCount(0);
+                    model.setColumnCount(3);
+                    model.setColumnIdentifiers(columnNames);
+                    String[] postagem = {"", "", ""};
+                    for (Dentista D : ListaDentistas) {
 
-                    postagem[0] = String.valueOf(D.getIdDentista());
-                    postagem[1] = D.getNome();
-                    postagem[2] = D.getCro();
+                        postagem[0] = String.valueOf(D.getIdDentista());
+                        postagem[1] = D.getNome();
+                        postagem[2] = D.getCro();
 
-                    model.addRow(postagem);
+                        model.addRow(postagem);
+                    }
                 }
             }
         }
@@ -309,21 +313,23 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (secaoProcedimento) {
             ListaProcedimentos = null;
             ListaProcedimentos = procedimento.pesquisar(nome);
+            if (ListaProcedimentos != null) {
 
-            String columnNames[] = {"Código", "Nome", "Descricao", "Valor"};
-            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
-            model.setRowCount(0);
-            model.setColumnCount(4);
-            model.setColumnIdentifiers(columnNames);
-            String[] postagem = {"", "", "", ""};
-            for (Procedimentos pro : ListaProcedimentos) {
+                String columnNames[] = {"Código", "Nome", "Descricao", "Valor"};
+                DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+                model.setRowCount(0);
+                model.setColumnCount(4);
+                model.setColumnIdentifiers(columnNames);
+                String[] postagem = {"", "", "", ""};
+                for (Procedimentos pro : ListaProcedimentos) {
 
-                postagem[0] = String.valueOf(pro.getId());
-                postagem[1] = pro.getNome();
-                postagem[2] = pro.getDescricao();
-                postagem[3] = String.valueOf(pro.getValor());
+                    postagem[0] = String.valueOf(pro.getId());
+                    postagem[1] = pro.getNome();
+                    postagem[2] = pro.getDescricao();
+                    postagem[3] = String.valueOf(pro.getValor());
 
-                model.addRow(postagem);
+                    model.addRow(postagem);
+                }
             }
         }
     }
@@ -343,7 +349,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     + "JOIN pessoa PP ON P.cod_pessoa = PP.idPessoa JOIN dentista D ON A.cod_dentista = D.idDentista "
                     + "JOIN pessoa PD ON D.cod_pessoa = PD.idPessoa JOIN procedimento PR ON A.cod_procedimento = PR.idProcedimento "
                     + "JOIN Atendente ATE ON A.cod_Atendente = ATE.idAtendente JOIN Pessoa PAT ON ATE.cod_pessoa = PAT.idPessoa "
-                    + "WHERE PP.nome LIKE '"+nome+"%'";
+                    + "WHERE PP.nome LIKE '" + nome + "%'";
 
             ResultSet rs = ModuloConexao.consultar(sql);
             if (rs != null) {
