@@ -84,8 +84,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
     }
     
     public void marcarHorario(){
-        atendimentoController.cadastraAtendimento(String.valueOf(cbxHorario.getSelectedItem()),txtData.getText() , idPaciente, idDentista, idAtendente, idProcedimento);
-        
+        atendimentoController.cadastraAtendimento(String.valueOf(cbxHorario.getSelectedItem()),txtData.getText() , idPaciente, idDentista, idAtendente, idProcedimento);        
     }
 
     @SuppressWarnings("unchecked")
@@ -375,37 +374,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FormularioAtendimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
