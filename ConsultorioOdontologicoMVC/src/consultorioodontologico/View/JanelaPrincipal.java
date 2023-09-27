@@ -212,7 +212,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         secaoPaciente = false;
         secaoDentista = false;
-        secaoProcedimento = true;
+        secaoProcedimento = false;
         secaoHorario = true;
         secaoAtendente = false;
 
@@ -246,12 +246,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     tabela[4] = rs.getString(5);
                     tabela[5] = rs.getString(6);
                     tabela[6] = rs.getString(7);
+                    
+                    model.addRow(tabela);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
 
-            model.addRow(tabela);
+            
         }
     }
 
@@ -436,37 +438,39 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     tabela[4] = rs.getString(5);
                     tabela[5] = rs.getString(6);
                     tabela[6] = rs.getString(7);
+                    
+                    model.addRow(tabela);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
-
-            model.addRow(tabela);
         }
     }
-    
-    public void pesquisarAtendente(String pesquisa){
+
+    public void pesquisarAtendente(String pesquisa) {
         ListaAtendentes = null;
         ListaAtendentes = atendente.Pesquisar(pesquisa);
-        String columnNames[] = {"Código", "Nome", "cpf", "Celular", "Email", "Endereço", "Salário", "Login", "Senha"};
-        DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
-        model.setRowCount(0);
-        model.setColumnCount(9);
-        model.setColumnIdentifiers(columnNames);
-        String[] postagem = {"", "", "", "", "", "", "", "", ""};
-        for (Atendente A : ListaAtendentes) {
-            if (!A.getLogin().equals("admin")) {
-                postagem[0] = String.valueOf(A.getIdAtendente());
-                postagem[1] = A.getNome();
-                postagem[2] = A.getCpf();
-                postagem[3] = A.getCelular();
-                postagem[4] = A.getEmail();
-                postagem[5] = A.getEndereco();
-                postagem[6] = String.valueOf(A.getSalario());
-                postagem[7] = A.getLogin();
-                postagem[8] = A.getSenha();
+        if (ListaAtendentes != null) {
+            String columnNames[] = {"Código", "Nome", "cpf", "Celular", "Email", "Endereço", "Salário", "Login", "Senha"};
+            DefaultTableModel model = (DefaultTableModel) tblDados.getModel();
+            model.setRowCount(0);
+            model.setColumnCount(9);
+            model.setColumnIdentifiers(columnNames);
+            String[] postagem = {"", "", "", "", "", "", "", "", ""};
+            for (Atendente A : ListaAtendentes) {
+                if (!A.getLogin().equals("admin")) {
+                    postagem[0] = String.valueOf(A.getIdAtendente());
+                    postagem[1] = A.getNome();
+                    postagem[2] = A.getCpf();
+                    postagem[3] = A.getCelular();
+                    postagem[4] = A.getEmail();
+                    postagem[5] = A.getEndereco();
+                    postagem[6] = String.valueOf(A.getSalario());
+                    postagem[7] = A.getLogin();
+                    postagem[8] = A.getSenha();
 
-                model.addRow(postagem);
+                    model.addRow(postagem);
+                }
             }
         }
     }
@@ -787,11 +791,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnPesquiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquiarActionPerformed
-        pesquisaPaciente(txtPesquisa.getText());
-        pesquisaDentista(txtPesquisa.getText());
-        pesquisarProcedimentos(txtPesquisa.getText());
-        pesquisarHorario(txtPesquisa.getText());
-
+        if (secaoPaciente) {
+            pesquisaPaciente(txtPesquisa.getText());
+        }
+        if (secaoDentista) {
+            pesquisaDentista(txtPesquisa.getText());
+        }
+        if (secaoProcedimento) {
+            pesquisarProcedimentos(txtPesquisa.getText());
+        }
+        if (secaoHorario) {
+            pesquisarHorario(txtPesquisa.getText());
+        }
+        if (secaoAtendente) {
+            pesquisarAtendente(txtPesquisa.getText());
+        }
     }//GEN-LAST:event_btnPesquiarActionPerformed
 
     private void btnProcedimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcedimentosActionPerformed

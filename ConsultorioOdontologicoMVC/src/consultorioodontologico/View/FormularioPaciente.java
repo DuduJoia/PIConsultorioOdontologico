@@ -9,6 +9,7 @@ import consultorioodontologico.Dao.ModuloConexao;
 import consultorioodontologico.Model.Paciente;
 import java.sql.*;
 import java.util.ArrayList;
+import javafx.scene.layout.Border;
 import javax.swing.JOptionPane;
 
 /**
@@ -140,6 +141,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtBordaVermelha = new javax.swing.JTextField();
+        txtBordaPreta = new javax.swing.JTextField();
         lblTitulo = new javax.swing.JLabel();
         lblCodigoPaciente = new javax.swing.JLabel();
         txtCodigoPaciente = new javax.swing.JTextField();
@@ -160,6 +163,10 @@ public class FormularioPaciente extends javax.swing.JFrame {
         btnAtualizar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
 
+        txtBordaVermelha.setText("jTextField1");
+
+        txtBordaPreta.setText("jTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setText("Atualizar Cadastro");
@@ -177,6 +184,11 @@ public class FormularioPaciente extends javax.swing.JFrame {
         lblNome.setText("Nome");
 
         txtNome.setEnabled(false);
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
+            }
+        });
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
@@ -348,6 +360,11 @@ public class FormularioPaciente extends javax.swing.JFrame {
         limpaTexto();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        txtNome.setBorder(txtBordaVermelha.getBorder());
+        txtNome.repaint();
+    }//GEN-LAST:event_txtNomeFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -400,6 +417,8 @@ public class FormularioPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextArea txtAreaAnamnese;
+    private javax.swing.JTextField txtBordaPreta;
+    private javax.swing.JTextField txtBordaVermelha;
     private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCodigoPaciente;
     private javax.swing.JTextField txtCpf;

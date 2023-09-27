@@ -28,7 +28,7 @@ public class AtendimentoDao {
                     +    "         " + atendimento.getCodPaciente()     + ","
                     +    "         " + atendimento.getCodDentista()     + ","
                     +    "         " + atendimento.getCodAtendente()    + ","
-                    +    "         " + atendimento.getCodProcedimento() + ";";
+                    +    "         " + atendimento.getCodProcedimento() + ");";
 
             ModuloConexao.executar(sql);
         } catch (Exception e) {

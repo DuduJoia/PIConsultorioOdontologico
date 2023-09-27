@@ -26,6 +26,8 @@ public class FormularioAtendimento extends javax.swing.JFrame {
     AtendimentoController atendimentoController = new AtendimentoController();
     int idPaciente = 0, idDentista = 0, idProcedimento = 0, idAtendente = 0;
 
+    boolean modoCadastrar, modoEditar, modoExcluir;
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
@@ -49,10 +51,10 @@ public class FormularioAtendimento extends javax.swing.JFrame {
         listaAtendimentos = new AtendimentoController().getAtendimentos();
 
     }
-    
-    public void carregaAtendente(int idDoAtendente){
+
+    public void carregaAtendente(int idDoAtendente) {
         idAtendente = idDoAtendente;
-        
+
     }
 
     public void carregaDentistas() {
@@ -81,10 +83,40 @@ public class FormularioAtendimento extends javax.swing.JFrame {
         cbxHorario.removeAllItems();
         cbxHorario.addItem("Selecione");
         resetaArrays();
+
+        for (int i = 9; i <= 20; i++) {
+            cbxHorario.addItem(i + ":00");
+        }
+        confereHorario();
     }
-    
-    public void marcarHorario(){
-        atendimentoController.cadastraAtendimento(String.valueOf(cbxHorario.getSelectedItem()),txtData.getText() , idPaciente, idDentista, idAtendente, idProcedimento);        
+
+    public void confereHorario() {
+
+        for (Atendimento a : listaAtendimentos) {
+            for (int i = 0; i <= cbxHorario.getItemCount(); i++) {
+                if (a.getHorario().equals(cbxHorario.getItemAt(i)) && a.getData().equals(txtData.getText())) {
+                    cbxHorario.removeItemAt(i);
+                }
+            }
+        }
+    }
+
+    public void marcarHorario() {
+        atendimentoController.cadastraAtendimento(String.valueOf(cbxHorario.getSelectedItem()), txtData.getText(), idPaciente, idDentista, idAtendente, idProcedimento);
+    }
+
+    public void buscarHorario() {
+        resetaArrays();
+        int contador = 1;
+        for (Atendimento a : listaAtendimentos) {
+            if (a.getIdAtendimento() == Integer.parseInt(txtCodigo.getText())) {
+                
+            }
+        }
+    }
+
+    public void buscarPacientes() {
+
     }
 
     @SuppressWarnings("unchecked")
@@ -93,6 +125,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
         lblTitulo = new javax.swing.JLabel();
         lblPaciente = new javax.swing.JLabel();
         lblDentista = new javax.swing.JLabel();
@@ -108,6 +141,9 @@ public class FormularioAtendimento extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         cbxPaciente = new javax.swing.JComboBox<>();
         txtData = new javax.swing.JFormattedTextField();
+        lblData1 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -116,7 +152,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblTitulo.setText("Agendar Horário");
+        lblTitulo.setText("Editar Horário");
 
         lblPaciente.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblPaciente.setText("Paciente");
@@ -207,6 +243,11 @@ public class FormularioAtendimento extends javax.swing.JFrame {
             }
         });
 
+        lblData1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblData1.setText("Código");
+
+        jButton1.setText("Buscar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,45 +256,57 @@ public class FormularioAtendimento extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(116, 116, 116)
-                        .addComponent(lblTitulo))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblHorario)
+                        .addGap(60, 60, 60)
+                        .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDentista, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cbxDentista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbxPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(lblHorario)
-                            .addGap(60, 60, 60)
-                            .addComponent(cbxHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lblDentista, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(41, 41, 41)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbxDentista, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbxPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblValor))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(111, 111, 111)
+                            .addComponent(cbxProcedimento, 0, 200, Short.MAX_VALUE))
+                        .addComponent(lblProcedimento, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblData1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblValor))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(111, 111, 111)
-                                .addComponent(cbxProcedimento, 0, 200, Short.MAX_VALUE))
-                            .addComponent(lblProcedimento, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(129, 129, 129)
+                                .addComponent(lblTitulo)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lblTitulo)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblData1)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData))
@@ -277,7 +330,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelValor)
                     .addComponent(lblValor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -310,7 +363,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxPacienteItemStateChanged
 
     private void cbxHorarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxHorarioItemStateChanged
-        System.out.println(cbxHorario.getSelectedItem());        
+        System.out.println(cbxHorario.getSelectedItem());
     }//GEN-LAST:event_cbxHorarioItemStateChanged
 
     private void cbxProcedimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxProcedimentoActionPerformed
@@ -328,7 +381,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
                 idProcedimento = p.getId();
                 lblValor.setText("R$" + p.getValor());
                 System.out.println(idProcedimento);
-                
+
             }
         }
     }//GEN-LAST:event_cbxProcedimentoItemStateChanged
@@ -346,7 +399,6 @@ public class FormularioAtendimento extends javax.swing.JFrame {
     private void txtDataFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataFocusLost
         carregaHorarios();
     }//GEN-LAST:event_txtDataFocusLost
-
 
     /**
      * @param args the command line arguments
@@ -391,16 +443,20 @@ public class FormularioAtendimento extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxHorario;
     private javax.swing.JComboBox<String> cbxPaciente;
     private javax.swing.JComboBox<String> cbxProcedimento;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelValor;
     private javax.swing.JLabel lblData;
+    private javax.swing.JLabel lblData1;
     private javax.swing.JLabel lblDentista;
     private javax.swing.JLabel lblHorario;
     private javax.swing.JLabel lblPaciente;
     private javax.swing.JLabel lblProcedimento;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblValor;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JFormattedTextField txtData;
     // End of variables declaration//GEN-END:variables
 }
