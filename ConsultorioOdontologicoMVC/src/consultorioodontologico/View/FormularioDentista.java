@@ -242,7 +242,7 @@ public class FormularioDentista extends javax.swing.JFrame {
         txtCpf.setEnabled(false);
 
         try {
-            txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####.##")));
+            txtSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####.##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
