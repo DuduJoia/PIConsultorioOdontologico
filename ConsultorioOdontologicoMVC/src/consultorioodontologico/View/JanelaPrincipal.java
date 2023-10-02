@@ -480,6 +480,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
+        scrollPane1 = new java.awt.ScrollPane();
         jPanel1 = new javax.swing.JPanel();
         btnPaciente = new javax.swing.JButton();
         btnDentista = new javax.swing.JButton();
@@ -900,6 +901,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUser;
+    private java.awt.ScrollPane scrollPane1;
     private javax.swing.JTable tblDados;
     private javax.swing.JTextField txtPesquisa;
     // End of variables declaration//GEN-END:variables
