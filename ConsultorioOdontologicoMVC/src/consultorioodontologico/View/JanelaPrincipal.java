@@ -246,14 +246,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     tabela[4] = rs.getString(5);
                     tabela[5] = rs.getString(6);
                     tabela[6] = rs.getString(7);
-                    
+
                     model.addRow(tabela);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
 
-            
         }
     }
 
@@ -344,6 +343,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 model.addRow(postagem);
             }
         }
+
+        if (tblDados.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Paciente não encontrado");
+        }
     }
 
     public void pesquisaDentista(String pesquisa) {
@@ -387,6 +390,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 }
             }
         }
+        if (tblDados.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Dentista não encontrado");
+        }
     }
 
     public void pesquisarProcedimentos(String pesquisa) {
@@ -408,6 +414,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
                 model.addRow(postagem);
             }
+        }
+        if (tblDados.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Procedimento não encontrado");
         }
     }
 
@@ -438,12 +447,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     tabela[4] = rs.getString(5);
                     tabela[5] = rs.getString(6);
                     tabela[6] = rs.getString(7);
-                    
+
                     model.addRow(tabela);
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
+        }
+        if (tblDados.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Horário não encontrado");
         }
     }
 
@@ -472,6 +484,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     model.addRow(postagem);
                 }
             }
+        }
+        if (tblDados.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "Atendente não encontrado");
         }
     }
 
