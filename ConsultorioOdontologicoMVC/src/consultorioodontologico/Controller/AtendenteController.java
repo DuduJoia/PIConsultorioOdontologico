@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
  * @author 182210134
  */
 public class AtendenteController {
+    
+    ArrayList<Atendente> listaAtendentes = new ArrayList<>();
+    Atendente atendente = new Atendente();
 
     public void cadastrar(String nome, String cpf, String celular, String email,
             String endereco, double salario, String login, String senha) {
@@ -21,9 +24,11 @@ public class AtendenteController {
             if (!nome.equals("") && nome.length() < 41 && !cpf.equals("") && cpf.length() < 15
                     && !celular.equals("") && celular.length() < 12 && !email.equals("") && email.length() < 46
                     && !endereco.equals("") && endereco.length() < 61 && !login.equals("") && login.length() < 21
-                    && !senha.equals("") && senha.length() > 26) {
+                    && !senha.equals("") && senha.length() < 26) {
                 Atendente atendente = new Atendente(nome, cpf, celular, email, endereco, salario, login, senha);
                 atendente.cadastrar(atendente);
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -36,9 +41,27 @@ public class AtendenteController {
             if (!nome.equals("") && nome.length() < 41 && !cpf.equals("") && cpf.length() < 15
                     && !celular.equals("") && celular.length() < 12 && !email.equals("") && email.length() < 46
                     && !endereco.equals("") && endereco.length() < 61 && !login.equals("") && login.length() < 21
-                    && !senha.equals("") && senha.length() > 26) {
-                Atendente atendente = new Atendente(nome, cpf, celular, email, endereco, salario, login, senha);
-                atendente.editar(atendente);
+                    && !senha.equals("") && senha.length() < 26) {
+                listaAtendentes = null;
+                listaAtendentes = atendente.getAtendentes();
+                
+                for(Atendente a : listaAtendentes){
+                    if(a.getIdAtendente() == idAtendente){
+                      a.setNome(nome);
+                      a.setCpf(cpf);
+                      a.setCelular(celular);
+                      a.setEmail(email);
+                      a.setEndereco(endereco);
+                      a.setSalario(salario);
+                      a.setLogin(login);
+                      a.setSenha(senha);
+                      
+                      a.editar(a);
+                    }
+                }
+                        
+            } else {
+                JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);

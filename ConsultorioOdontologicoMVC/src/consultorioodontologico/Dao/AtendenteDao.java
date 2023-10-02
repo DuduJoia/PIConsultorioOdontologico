@@ -98,9 +98,9 @@ public class AtendenteDao extends Pessoa {
 
             String sql = "UPDATE atendente SET "
                     + " salario = " + atendente.getSalario() + " , "
-                    + " Senha = '" + atendente.getSenha() + "',  "
-                    + " Senha = '" + atendente.getLogin() + "',  "
-                    + " where idAtendente = " + atendente.getIdAtendente() + ";  ";
+                    + " senha = '" + atendente.getSenha() + "',  "
+                    + " login = '" + atendente.getLogin() + "'  "
+                    + " Where idAtendente = " + atendente.getIdAtendente() + ";  ";
             ModuloConexao.executar(sql);
             JOptionPane.showMessageDialog(null, "Atendente atualizado com sucesso");
         } catch (Exception e) {

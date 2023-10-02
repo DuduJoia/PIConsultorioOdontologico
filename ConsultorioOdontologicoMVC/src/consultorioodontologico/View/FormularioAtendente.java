@@ -32,12 +32,12 @@ public class FormularioAtendente extends javax.swing.JFrame {
 
     }
 
-    public void buscaIdDentistas() {
+    public void buscaIdAtendentes() {
         listaAtendentes = null;
         listaAtendentes = atendente.getAtendentes();
         try {
             for (Atendente aten : listaAtendentes) {
-                if (aten.getIdAtendente()== Integer.parseInt(txtCodigoAtendente.getText()) && !aten.getLogin().equals("admin")) {
+                if (aten.getIdAtendente() == Integer.parseInt(txtCodigoAtendente.getText()) && !aten.getLogin().equals("admin")) {
                     txtNome.setText(aten.getNome());
                     txtCpf.setText(aten.getCpf());
                     txtCelular.setText(aten.getCelular());
@@ -144,6 +144,7 @@ public class FormularioAtendente extends javax.swing.JFrame {
         txtEndereco.setText("");
         txtSalario.setText("");
         txtLogin.setText("");
+        txtSenha.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -260,8 +261,6 @@ public class FormularioAtendente extends javax.swing.JFrame {
         lblSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSenha.setText("Senha");
 
-        txtSenha.setEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -371,12 +370,13 @@ public class FormularioAtendente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        
+
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        buscaIdDentistas();
+        buscaIdAtendentes();
         idAtendente = Integer.parseInt(txtCodigoAtendente.getText());
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -385,7 +385,7 @@ public class FormularioAtendente extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (modoEditar == true) {
-            atendente.editar(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), Double.parseDouble(txtSalario.getText()), txtLogin.getText(), txtSenha.getText(),idAtendente);
+            atendente.editar(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), Double.parseDouble(txtSalario.getText()), txtLogin.getText(), txtSenha.getText(), idAtendente);
 
         } else if (modoExcluir == true) {
             atendente.excluir(idAtendente);
