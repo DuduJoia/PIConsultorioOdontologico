@@ -18,21 +18,20 @@ public class AtendenteController {
     ArrayList<Atendente> listaAtendentes = new ArrayList<>();
     Atendente atendente = new Atendente();
 
-    public void cadastrar(String nome, String cpf, String celular, String email,
+    public boolean cadastrar(String nome, String cpf, String celular, String email,
             String endereco, double salario, String login, String senha) {
-        try {
             if (!nome.equals("") && nome.length() < 41 && !cpf.equals("") && cpf.length() < 15
                     && !celular.equals("") && celular.length() < 12 && !email.equals("") && email.length() < 46
                     && !endereco.equals("") && endereco.length() < 61 && !login.equals("") && login.length() < 21
                     && !login.equals("admin") && !senha.equals("") && senha.length() < 26) {
                 Atendente atendente = new Atendente(nome, cpf, celular, email, endereco, salario, login, senha);
                 atendente.cadastrar(atendente);
+                
+                return true;
             } else {
                 JOptionPane.showMessageDialog(null, "Preencha os campos corretamente");
+                return false;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
     }
 
     public void editar(String nome, String cpf, String celular, String email,

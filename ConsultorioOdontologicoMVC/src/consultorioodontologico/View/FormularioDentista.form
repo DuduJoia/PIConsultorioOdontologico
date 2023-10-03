@@ -184,6 +184,7 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCpf">
@@ -214,6 +215,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEmailKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEndereco">
       <Properties>
@@ -227,6 +231,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEnderecoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblSalario">
       <Properties>
@@ -264,6 +271,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCroKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtCpf">
       <Properties>
@@ -288,6 +298,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCelularKeyTyped"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

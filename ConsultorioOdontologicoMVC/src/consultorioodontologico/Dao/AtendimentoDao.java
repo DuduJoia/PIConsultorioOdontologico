@@ -23,14 +23,16 @@ public class AtendimentoDao {
     public void cadastrar(Atendimento atendimento) {
         try {
             String sql = "INSERT INTO atendimento (horario ,data , cod_paciente, cod_dentista, cod_atendente, cod_procedimento) "
-                    +    "VALUES ('" + atendimento.getHorario()         + "',"
-                    +    "        '" + atendimento.getData()            + "',"
-                    +    "         " + atendimento.getCodPaciente()     + ","
-                    +    "         " + atendimento.getCodDentista()     + ","
-                    +    "         " + atendimento.getCodAtendente()    + ","
-                    +    "         " + atendimento.getCodProcedimento() + ");";
+                    + "VALUES ('" + atendimento.getHorario() + "',"
+                    + "        '" + atendimento.getData() + "',"
+                    + "         " + atendimento.getCodPaciente() + ","
+                    + "         " + atendimento.getCodDentista() + ","
+                    + "         " + atendimento.getCodAtendente() + ","
+                    + "         " + atendimento.getCodProcedimento() + ");";
 
             ModuloConexao.executar(sql);
+
+            JOptionPane.showMessageDialog(null, "Horário agendado com sucesso.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -47,6 +49,8 @@ public class AtendimentoDao {
                     + "cod_Procedimento = '" + atendimento.getCodProcedimento() + "); ";
 
             ModuloConexao.executar(sql);
+
+            JOptionPane.showMessageDialog(null, "Horário atualizado com sucesso.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -57,6 +61,7 @@ public class AtendimentoDao {
             String sql = "DELETE FROM atendimento WHERE idAtendimento = " + idAtendimento;
 
             ModuloConexao.executar(sql);
+            JOptionPane.showMessageDialog(null, "Horário excluído com sucesso.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

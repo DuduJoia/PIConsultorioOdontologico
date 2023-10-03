@@ -163,6 +163,11 @@ public class FormularioProcedimentos extends javax.swing.JFrame {
         lblDescricao.setText("Descrição");
 
         txtValor.setEnabled(false);
+        txtValor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtValorKeyTyped(evt);
+            }
+        });
 
         lblValor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblValor.setText("Valor");
@@ -281,6 +286,14 @@ public class FormularioProcedimentos extends javax.swing.JFrame {
             limpaTexto();
         }
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void txtValorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) || txtValor.getText().length() == 7) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtValorKeyTyped
 
     /**
          * @param args the command line arguments

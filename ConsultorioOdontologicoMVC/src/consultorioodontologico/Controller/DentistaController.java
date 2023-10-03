@@ -9,26 +9,24 @@ public class DentistaController {
     ArrayList<Dentista> listaDentista = new ArrayList<>();
     Dentista dentista = new Dentista();
 
-    public void cadastrar(String nome, String cpf, String celular, String email, String endereco, double salario, String cro) {
-        try {
-            if (cpf.length() == 14 && celular.length() < 15 && cro.length() <= 10
+    public boolean cadastrar(String nome, String cpf, String celular, String email, String endereco, double salario, String cro) {
+            if (nome.length() <= 40 && cpf.length() == 14 && celular.length() < 15 && cro.length() <= 10
                     && !email.equals("") && email.length() < 45 && !endereco.equals("") && endereco.length() < 60
                     && !nome.equals("") && !cpf.equals("") && !celular.equals("") && !email.equals("") && !endereco.equals("") && !cro.equals("")) {
 
                 Dentista dentista = new Dentista(nome, cpf, celular, email, endereco, salario, cro);
                 dentista.cadastrar(dentista);
+                return true;
             }
             else{
                 JOptionPane.showMessageDialog(null, "Erro, preencha os campos corretamente");
+                return false;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
     }
 
     public void editar(String nome, String cpf, String celular, String email, String endereco, double salario, String cro, int idDentista) {
         try {
-            if (cpf.length() == 14 && celular.length() <= 15 && cro.length() <= 10
+            if (nome.length() <= 40 && cpf.length() == 14 && celular.length() <= 15 && cro.length() <= 10
                     && !email.equals("") && email.length() < 45 && !endereco.equals("") && endereco.length() < 60
                     && !nome.equals("") && !cpf.equals("") && !celular.equals("") && !email.equals("") && !endereco.equals("") && !cro.equals("")) {
                 listaDentista = null;

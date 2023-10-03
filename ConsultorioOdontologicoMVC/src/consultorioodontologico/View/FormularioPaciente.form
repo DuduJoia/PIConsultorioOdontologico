@@ -183,6 +183,7 @@
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNomeFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomeKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCpf">
@@ -210,6 +211,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCelularKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEmail">
       <Properties>
@@ -223,6 +227,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEmailKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblEndereco">
       <Properties>
@@ -236,6 +243,9 @@
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtEnderecoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblAnamnese">
       <Properties>
@@ -258,6 +268,9 @@
             <Property name="rows" type="int" value="5"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtAreaAnamneseKeyTyped"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

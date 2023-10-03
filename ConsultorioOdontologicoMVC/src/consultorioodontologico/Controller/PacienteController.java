@@ -9,25 +9,24 @@ public class PacienteController {
     ArrayList<Paciente> listaPacientes = new ArrayList<>();
     Paciente paciente = new Paciente();
 
-    public void cadastrarPaciente(String nome, String cpf, String celular, String email, String endereco, String anamnese) {
-        try {
-            if (cpf.length() == 14 && celular.length() < 15 && email.length() < 45 && endereco.length() < 60
-                    && !nome.equals("") && !cpf.equals("") && !celular.equals("")
-                    && !email.equals("") && !endereco.equals("")) {
+    public boolean cadastrarPaciente(String nome, String cpf, String celular, String email, String endereco, String anamnese) {
+        if (nome.length() <= 40 && cpf.length() == 14 && celular.length() < 15 && email.length() < 45 && endereco.length() < 60
+                && !nome.equals("") && !cpf.equals("") && !celular.equals("")
+                && !email.equals("") && !endereco.equals("")) {
 
-                Paciente pac = new Paciente(nome, cpf, celular, email, endereco, anamnese);
-                pac.cadastrar(pac);
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro, preencha os campos corretamente");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            Paciente pac = new Paciente(nome, cpf, celular, email, endereco, anamnese);
+            pac.cadastrar(pac);
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro, preencha os campos corretamente");
+            return false;
         }
+
     }
 
     public void editarPaciente(String nome, String cpf, String celular, String email, String endereco, String anamnese, int idPaciente) {
         try {
-            if (cpf.length() == 14 && celular.length() < 26 && email.length()
+            if (nome.length() <= 40 && cpf.length() == 14 && celular.length() < 26 && email.length()
                     < 45 && endereco.length() < 60 && !nome.equals("") && !cpf.equals("")
                     && !celular.equals("") && !email.equals("") && !endereco.equals("")) {
                 System.out.println("cheguei");
@@ -79,9 +78,9 @@ public class PacienteController {
     public ArrayList<Paciente> pesquisar(String pesquisa) {
         if (!pesquisa.equals("")) {
             return paciente.pesquisar(pesquisa);
-        }
-        else{ JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquisa.");
-        return null;
+        } else {
+            JOptionPane.showMessageDialog(null, "Você deve preencher o campo de pesquisa.");
+            return null;
         }
     }
 }

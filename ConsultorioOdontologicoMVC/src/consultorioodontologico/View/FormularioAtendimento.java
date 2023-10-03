@@ -100,23 +100,19 @@ public class FormularioAtendimento extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void limpaCampos(){
+        txtData.setText("01/01/2023");
+        cbxPaciente.setSelectedIndex(0);
+        cbxDentista.setSelectedIndex(0);
+        cbxProcedimento.setSelectedIndex(0);
+        cbxHorario.removeAllItems();
+        cbxHorario.addItem("Selecione");
+    }
 
     public void marcarHorario() {
         atendimentoController.cadastraAtendimento(String.valueOf(cbxHorario.getSelectedItem()), txtData.getText(), idPaciente, idDentista, idAtendente, idProcedimento);
-    }
-
-    public void buscarHorario() {
-        resetaArrays();
-        int contador = 1;
-        for (Atendimento a : listaAtendimentos) {
-            if (a.getIdAtendimento() == Integer.parseInt(txtCodigo.getText())) {
-                
-            }
-        }
-    }
-
-    public void buscarPacientes() {
-
+        limpaCampos();
     }
 
     @SuppressWarnings("unchecked")
@@ -141,9 +137,6 @@ public class FormularioAtendimento extends javax.swing.JFrame {
         btnConfirmar = new javax.swing.JButton();
         cbxPaciente = new javax.swing.JComboBox<>();
         txtData = new javax.swing.JFormattedTextField();
-        lblData1 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -152,7 +145,7 @@ public class FormularioAtendimento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblTitulo.setText("Editar Horário");
+        lblTitulo.setText("Agendar horário");
 
         lblPaciente.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblPaciente.setText("Paciente");
@@ -243,11 +236,6 @@ public class FormularioAtendimento extends javax.swing.JFrame {
             }
         });
 
-        lblData1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        lblData1.setText("Código");
-
-        jButton1.setText("Buscar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -284,29 +272,16 @@ public class FormularioAtendimento extends javax.swing.JFrame {
                             .addComponent(cbxProcedimento, 0, 200, Short.MAX_VALUE))
                         .addComponent(lblProcedimento, javax.swing.GroupLayout.Alignment.LEADING))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblData1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(111, 111, 111)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(129, 129, 129)
-                                .addComponent(lblTitulo)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addGap(129, 129, 129)
+                        .addComponent(lblTitulo)))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblData1)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblData))
@@ -444,19 +419,16 @@ public class FormularioAtendimento extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxPaciente;
     private javax.swing.JComboBox<String> cbxProcedimento;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel labelValor;
     private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblData1;
     private javax.swing.JLabel lblDentista;
     private javax.swing.JLabel lblHorario;
     private javax.swing.JLabel lblPaciente;
     private javax.swing.JLabel lblProcedimento;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblValor;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JFormattedTextField txtData;
     // End of variables declaration//GEN-END:variables
 }

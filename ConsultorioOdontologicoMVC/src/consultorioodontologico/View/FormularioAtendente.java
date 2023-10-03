@@ -202,6 +202,11 @@ public class FormularioAtendente extends javax.swing.JFrame {
                 txtNomeActionPerformed(evt);
             }
         });
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNomeKeyTyped(evt);
+            }
+        });
 
         lblCpf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblCpf.setText("CPF");
@@ -213,11 +218,21 @@ public class FormularioAtendente extends javax.swing.JFrame {
         lblEmail.setText("Email");
 
         txtEmail.setEnabled(false);
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmailKeyTyped(evt);
+            }
+        });
 
         lblEndereco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblEndereco.setText("Endereço");
 
         txtEndereco.setEnabled(false);
+        txtEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEnderecoKeyTyped(evt);
+            }
+        });
 
         lblSalario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSalario.setText("Salário");
@@ -240,6 +255,11 @@ public class FormularioAtendente extends javax.swing.JFrame {
         lblLogin.setText("Login");
 
         txtLogin.setEnabled(false);
+        txtLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLoginKeyTyped(evt);
+            }
+        });
 
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -257,9 +277,20 @@ public class FormularioAtendente extends javax.swing.JFrame {
         txtSalario.setFocusLostBehavior(JFormattedTextField.COMMIT);
 
         txtCelular.setEnabled(false);
+        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCelularKeyTyped(evt);
+            }
+        });
 
         lblSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSenha.setText("Senha");
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -385,15 +416,20 @@ public class FormularioAtendente extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (modoEditar == true) {
+            
             atendente.editar(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), Double.parseDouble(txtSalario.getText()), txtLogin.getText(), txtSenha.getText(), idAtendente);
+            limpaTexto();
 
         } else if (modoExcluir == true) {
             atendente.excluir(idAtendente);
+            limpaTexto();
 
         } else if (modoCadastrar == true) {
-            atendente.cadastrar(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), Double.parseDouble(txtSalario.getText()), txtLogin.getText(), txtSenha.getText());
+            if (atendente.cadastrar(txtNome.getText(), txtCpf.getText(), txtCelular.getText(), txtEmail.getText(), txtEndereco.getText(), Double.parseDouble(txtSalario.getText()), txtLogin.getText(), txtSenha.getText())){
+                limpaTexto();
+            }
         }
-        limpaTexto();
+        
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void txtCodigoAtendenteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoAtendenteKeyTyped
@@ -403,6 +439,54 @@ public class FormularioAtendente extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCodigoAtendenteKeyTyped
+
+    private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
+        char c = evt.getKeyChar();
+
+        if (!Character.isDigit(c) || txtCelular.getText().length() == 11) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCelularKeyTyped
+
+    private void txtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyTyped
+        char c = evt.getKeyChar();
+
+        if (txtNome.getText().length() == 40) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNomeKeyTyped
+
+    private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyTyped
+        char c = evt.getKeyChar();
+
+        if (txtEmail.getText().length() == 45) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtEmailKeyTyped
+
+    private void txtEnderecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEnderecoKeyTyped
+        char c = evt.getKeyChar();
+
+        if (txtEndereco.getText().length() == 60) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtEnderecoKeyTyped
+
+    private void txtLoginKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginKeyTyped
+        char c = evt.getKeyChar();
+
+        if (txtLogin.getText().length() == 20) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtLoginKeyTyped
+
+    private void txtSenhaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyTyped
+        char c = evt.getKeyChar();
+
+        if (txtSenha.getText().length() == 25) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSenhaKeyTyped
 
     /**
      * @param args the command line arguments
